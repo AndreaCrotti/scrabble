@@ -1,0 +1,1 @@
+web: java $JVM_OPTS -cp target/scrabble.jar clojure.main -m scrabble.api
