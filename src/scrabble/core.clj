@@ -38,9 +38,9 @@
   (let [perms (combo/permutations letters)
         perms-words (map str/join perms)
         valid-words (intersection (set perms-words) (set all-words))]
-    (into {}
+    (into []
           (for [vl valid-words]
-            {(word-value vl) vl}))))
+            {:value (word-value vl) :word vl}))))
 
 
 (def cli-options
@@ -54,6 +54,6 @@
   "I don't do a whole lot ... yet."
   [& args]
   (let [options (parse-opts args cli-options)
-        word (nth (:arguments options) 0)]
-    
-    (prn (possibilities word))))
+        word (nth (:arguments options) 0)
+        variants (sort-by :value (possibilities word))]
+    (println variants)))
