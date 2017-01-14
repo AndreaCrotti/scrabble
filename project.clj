@@ -10,6 +10,8 @@
                  [clj-jwt "0.1.1"]
                  [compojure "1.5.2"]
                  [environ "1.1.0"]
+                 [metosin/ring-http-response "0.8.1"]
+                 [ring-middleware-format "0.7.0" :exclusions [ring]]
                  [ring/ring-defaults "0.2.2"]
                  [org.clojure/math.combinatorics "0.1.4"]]
 
@@ -19,4 +21,6 @@
          :auto-refresh? true}
   :main ^:skip-aot scrabble.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles
+  {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
+                        [ring-mock "0.1.5"]]}})

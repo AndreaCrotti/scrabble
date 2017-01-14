@@ -27,7 +27,7 @@
 (defn word-value [word]
   (apply + (map (fn [v] (get keyed-points v)) word)))
 
-(def all-words
+(defonce all-words
   (->> dict-file
        slurp
       (str/split-lines)
