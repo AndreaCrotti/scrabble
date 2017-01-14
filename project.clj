@@ -4,6 +4,7 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.9.0-alpha14"]
+                 [org.clojure/tools.cli "0.3.5"]
                  [org.clojure/math.combinatorics "0.1.4"]]
   :main ^:skip-aot scrabble.core
   :target-path "target/%s"

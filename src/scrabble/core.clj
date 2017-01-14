@@ -1,6 +1,7 @@
 (ns scrabble.core
   (:require [clojure.string :as str]
             [clojure.set :refer [intersection]]
+            [clojure.tools.cli :refer [parse-opts]]
             [clojure.math.combinatorics :as combo])
   (:gen-class))
 
@@ -10,7 +11,7 @@
   {1 [\a \e \i \o \r \s \t]
    2 [\d \l \n \u]
    3 [\g \h \y]
-   4 [\c \f \m \p \q]
+   4 [\b \c \f \m \p \q]
    5 [\k \w]
    8 [\x]
    10 [\j \q \z]})
@@ -35,10 +36,24 @@
 (defn possibilities [letters]
   "Return all possible valid words from the given letters"
   (let [perms (combo/permutations letters)
-        perms-words (map str/join perms)]
-    (intersection (set perms-words) (set all-words))))
+        perms-words (map str/join perms)
+        valid-words (intersection (set perms-words) (set all-words))]
+    (into {}
+          (for [vl valid-words]
+            {(word-value vl) vl}))))
+
+
+(def cli-options
+  ;; An option with a required argument
+  [["-w" "--word" "Word to analyze"
+    :validate [#(pos? (count %))]]
+   ["-h" "--help"]])
+
 
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (println "Hello, World!"))
+  (let [options (parse-opts args cli-options)
+        word (nth (:arguments options) 0)]
+    
+    (prn (possibilities word))))
