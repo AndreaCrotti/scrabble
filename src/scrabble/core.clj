@@ -6,6 +6,26 @@
 
 (def dict-file "/usr/share/dict/american-english")
 
+(def points
+  {1 [\a \e \i \o \r \s \t]
+   2 [\d \l \n \u]
+   3 [\g \h \y]
+   4 [\c \f \m \p \q]
+   5 [\k \w]
+   8 [\x]
+   10 [\j \q \z]})
+
+(def keyed-points
+  (let [subsets
+        (for [p points]
+          (let [[weight letters] p]
+            (for [l letters]
+              {l weight})))]
+    (into {} (flatten subsets))))
+
+(defn word-value [word]
+  (apply + (map (fn [v] (get keyed-points v)) word)))
+
 (def all-words
   (->> dict-file
        slurp
