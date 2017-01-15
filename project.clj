@@ -15,12 +15,16 @@
                  [ring/ring-defaults "0.2.2"]
                  [org.clojure/math.combinatorics "0.1.4"]]
 
-  :plugins [[lein-ring "0.8.13"]]
+  :uberjar-name "clojure-getting-started-standalone.jar"
+  :plugins [[lein-ring "0.8.13"]
+            [environ/environ.lein "0.3.1"]]
+  :hooks [environ.leiningen.hooks]
   :ring {:handler scrabble.api/app
          :auto-reload? true
          :auto-refresh? true}
   :main ^:skip-aot scrabble.core
   :target-path "target/%s"
   :profiles
-  {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
+  {:uberjar {:aot :all}
+   :dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring-mock "0.1.5"]]}})

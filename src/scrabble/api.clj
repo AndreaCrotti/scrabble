@@ -1,4 +1,5 @@
 (ns scrabble.api
+  (:gen-class)
   (:require [compojure
              [core :refer :all]
              [route :as route]]
