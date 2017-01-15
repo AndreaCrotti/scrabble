@@ -1,0 +1,6 @@
+{
+  "name": "scrabble-helper",
+  "description": "Scrabble helper",
+  "image": "heroku/clojure",
+  "addons": [ "heroku-postgresql" ]
+}
