@@ -1,32 +1,19 @@
 # scrabble
 
-FIXME: description
+Various functions to generate list of valid words for scrabble/words with friends.
 
 ## Installation
 
-Download from http://example.com/FIXME.
+Download from https://github.com/AndreaCrotti/scrabble
 
 ## Usage
 
-FIXME: explanation
-
-    $ java -jar scrabble-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
+    $ lein run -w <word>
 
 ## Examples
 
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+    $ lein run -w friend
+    ({:value 11, :word finder} {:value 11, :word friend})
 
 ## License
 
