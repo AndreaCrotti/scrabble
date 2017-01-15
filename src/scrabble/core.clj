@@ -11,8 +11,8 @@
   {1 [\a \e \i \o \r \s \t]
    2 [\d \l \n \u]
    3 [\g \h \y]
-   4 [\b \c \f \m \p \q]
-   5 [\k \w]
+   4 [\b \c \f \m \p]
+   5 [\k \w \v]
    8 [\x]
    10 [\j \q \z]})
 
@@ -23,6 +23,9 @@
             (for [l letters]
               {l weight})))]
     (into {} (flatten subsets))))
+
+;; evaluate constraints as well here if possible
+(def tile {2 :tw, 3 :dl, 5 :tl})
 
 (defn word-value [word]
   (apply + (map (fn [v] (get keyed-points v)) word)))
@@ -51,7 +54,6 @@
 
 
 (defn -main
-  "I don't do a whole lot ... yet."
   [& args]
   (let [options (parse-opts args cli-options)
         word (nth (:arguments options) 0)
