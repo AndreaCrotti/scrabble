@@ -1,4 +1,5 @@
 # scrabble
+[![Build Status](https://travis-ci.org/AndreaCrotti/scrabble.svg?branch=master)](https://travis-ci.org/AndreaCrotti/scrabble)
 
 Various functions to generate list of valid words for scrabble/words with friends.
 
