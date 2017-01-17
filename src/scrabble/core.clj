@@ -27,8 +27,15 @@
 ;; evaluate constraints as well here if possible
 (def tile {2 :tw, 3 :dl, 5 :tl})
 
+(def row [{:pos 0 :letter nil :val nil}
+          {:pos 1 :letter \a :val :tw}
+          {:pos 2 :letter nil :val :tl}])
+
 (defn word-value [word]
   (apply + (map (fn [v] (get keyed-points v)) word)))
+
+(defn word-value-tiles [tiles word]
+  17)
 
 (defonce all-words
   (->> dict-file

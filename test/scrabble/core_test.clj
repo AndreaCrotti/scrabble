@@ -19,3 +19,12 @@
   (testing "word with different tiles settings"
     (comment
       (is (= (word-value "test" {0 :tl}) 6)))))
+
+(deftest test-word-values-tiles
+  (let [tiles
+        [{:pos 0 :letter nil :val nil}
+         {:pos 1 :letter \a :val :tw}
+         {:pos 2 :letter nil :val :tl}]
+        word [\b \a \c]]
+    (testing "words with positions and numbers"
+      (is (= (word-value-tiles tiles word))))))

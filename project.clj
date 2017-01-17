@@ -7,6 +7,7 @@
                  [org.clojure/tools.cli "0.3.5"]
                  [org.clojure/data.json "0.2.6"]
                  [org.clojure/core.async "0.2.395"]
+                 [http-kit "2.2.0"]
                  [clj-jwt "0.1.1"]
                  [compojure "1.5.2"]
                  [environ "1.1.0"]
@@ -25,6 +26,9 @@
   :main ^:skip-aot scrabble.core
   :target-path "target/%s"
   :profiles
-  {:uberjar {:aot :all}
-   :dev {:dependencies [[javax.servlet/servlet-api "2.5"]
-                        [ring-mock "0.1.5"]]}})
+  {:dev
+   {:plugins [[lein-figwheel "0.5.4-4"]]
+    :dependencies [[javax.servlet/servlet-api "2.5"]
+                   [ring-mock "0.1.5"]
+                   [figwheel "0.5.4-4"]
+                   [figwheel-sidecar "0.5.4-4"]]}})
