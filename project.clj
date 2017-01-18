@@ -11,6 +11,7 @@
                  [clj-jwt "0.1.1"]
                  [compojure "1.5.2"]
                  [environ "1.1.0"]
+                 [ring/ring-json "0.4.0"]
                  [metosin/ring-http-response "0.8.1"]
                  [ring-middleware-format "0.7.0" :exclusions [ring]]
                  [ring/ring-defaults "0.2.2"]

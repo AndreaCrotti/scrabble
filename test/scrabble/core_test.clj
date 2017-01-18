@@ -50,3 +50,10 @@
   (are [word-val tiles word] (= word-val (word-value-tiles tiles word))
     ;; single letter already filled in
     1 [{:pos 0 :letter \a :val :tw}] "h"))
+
+
+(deftest str-to-tile-test
+  (are [tile tile-str] (= tile (str-to-tile tile-str))
+    {:pos 0 :letter \b :val nil} "b"
+    {:pos 0 :letter nil :val :tl} "3"
+    {:pos 0 :letter nil :val :dw} "6"))

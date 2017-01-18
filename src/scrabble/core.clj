@@ -60,6 +60,21 @@
                           (apply max all-multipliers))]
     (* word-multiplier partial-sum)))
 
+(def mult-char-to-keyword
+  {\2 :dl
+   \3 :tl
+   \6 :dw
+   \9 :tw})
+
+(defn str-to-tile [tile-str]
+  (first
+   (map-indexed
+    (fn [idx v] (let [sym
+                     (get mult-char-to-keyword v nil)
+                     letter(if (nil? sym) v nil)]
+                 {:pos idx :letter letter :val sym}))
+    tile-str)))
+
 (defonce all-words
   (->> dict-file
        slurp
