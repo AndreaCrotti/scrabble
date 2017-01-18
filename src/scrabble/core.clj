@@ -23,6 +23,7 @@
    8 [\x]
    10 [\j \q \z]})
 
+;; There should be an easier way to do this transformation
 (def keyed-points
   (let [subsets
         (for [p points]

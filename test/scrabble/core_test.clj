@@ -44,3 +44,9 @@
         word "b"]
     (testing "Don't reuse already used triple words"
       (is (= (word-value-tiles tiles word) 1)))))
+
+
+(deftest word-values-test-are
+  (are [word-val tiles word] (= word-val (word-value-tiles tiles word))
+    ;; single letter already filled in
+    1 [{:pos 0 :letter \a :val :tw}] "h"))
