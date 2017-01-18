@@ -8,11 +8,8 @@
 
 (def dict-file "/usr/share/dict/american-english")
 
-(def mult-word {:dw 2
-                :tw 3})
-
-(def mult-char {:dl 2
-                :tl 3})
+(def mult-word {:dw 2 :tw 3})
+(def mult-char {:ol 1 :dl 2 :tl 3})
 
 (def points
   {1 [\a \e \i \o \r \s \t]
@@ -61,19 +58,23 @@
     (* word-multiplier partial-sum)))
 
 (def mult-char-to-keyword
-  {\2 :dl
+  {\1 :ol
+   \2 :dl
    \3 :tl
    \6 :dw
    \9 :tw})
 
+;; another representation could be a simple comma separated list
+;; of strings, with the symbols inside them
 (defn str-to-tile [tile-str]
-  (first
-   (map-indexed
-    (fn [idx v] (let [sym
-                     (get mult-char-to-keyword v nil)
-                     letter(if (nil? sym) v nil)]
-                 {:pos idx :letter letter :val sym}))
-    tile-str)))
+  "Convert a string representation of tiles to the list of maps"
+  (into []
+        (map-indexed
+         (fn [idx v] (let [sym
+                          (get mult-char-to-keyword v nil)
+                          letter (if (nil? sym) v nil)]
+                      {:pos idx :letter letter :val sym}))
+         tile-str)))
 
 (defonce all-words
   (->> dict-file
@@ -81,16 +82,30 @@
       (str/split-lines)
       (map str/lower-case)))
 
+(defn permute-with-tiles [tiles letters]
+  (let [empty-cells
+        (filter #(nil? (:letter %)) tiles)
+        filled-cells
+        (filter #(not (nil? (:letter %))) tiles)
+        max-length (count tiles)
+        max-to-use (count empty-cells)]
+    (for [an (anagrams letters max-to-use)]
+      (let [letters-dict (map (fn [v] {:letter v}) an)]
+        (concat filled-cells  (map merge empty-cells letters-dict))))))
+
 (defn perms-with-length [letters size]
   "Permutations by length"
   (map str/join (set (map #(take size %) (combo/permutations letters)))))
 
-(defn anagrams [letters]
+(defn anagrams
   "Return all possible valid words from the given letters"
-  (apply clojure.set/union
-         (for [size (range  (count letters) 1 -1)]
-           (let [perms-words (perms-with-length letters size)]
-             (intersection (set perms-words) (set all-words))))))
+  ([letters]
+   (anagrams letters (count letters)))
+  ([letters max-size]
+   (apply clojure.set/union
+          (for [size (range  max-size 1 -1)]
+            (let [perms-words (perms-with-length letters size)]
+              (intersection (set perms-words) (set all-words)))))))
 
 (def cli-options
   ;; An option with a required argument
@@ -99,7 +114,6 @@
     :validate [#(pos? (count %)) "Must not be an empty word"]]
    ["-t", "--tiles", "tiles configuration"]
    ["-h" "--help"]])
-
 
 (defn -main
   [& args]
