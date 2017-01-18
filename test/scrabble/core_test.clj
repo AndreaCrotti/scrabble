@@ -62,4 +62,4 @@
 (deftest anagrams-test
   (testing "simple-anagrams"
     (are [ans word] (= (anagrams word) ans)
-      #{"cab" "ac" "ca" "ba"} "abc")))
+      #{"ab" "cab" "cb" "ac" "ca" "abc" "ba" "bc"} "abc")))
