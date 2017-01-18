@@ -81,20 +81,23 @@
       (str/split-lines)
       (map str/lower-case)))
 
-(defn possibilities [letters]
-  "Return all possible valid words from the given letters"
-  (let [perms (combo/permutations letters)
-        perms-words (map str/join perms)
-        valid-words (intersection (set perms-words) (set all-words))]
-    (into []
-          (for [vl valid-words]
-            {:value (word-value vl) :word vl}))))
+(defn perms-with-length [letters size]
+  "Permutations by length"
+  (map str/join (set (map #(take size %) (combo/permutations letters)))))
 
+(defn anagrams [letters]
+  "Return all possible valid words from the given letters"
+  (apply clojure.set/union
+         (for [size (range  (count letters) 1 -1)]
+           (let [perms-words (perms-with-length letters size)]
+             (intersection (set perms-words) (set all-words))))))
 
 (def cli-options
   ;; An option with a required argument
   [["-w" "--word" "Word to analyze"
-    :validate [#(pos? (count %))]]
+    :default "friend"
+    :validate [#(pos? (count %)) "Must not be an empty word"]]
+   ["-t", "--tiles", "tiles configuration"]
    ["-h" "--help"]])
 
 
@@ -102,5 +105,5 @@
   [& args]
   (let [options (parse-opts args cli-options)
         word (nth (:arguments options) 0)
-        variants (sort-by :value (possibilities word))]
+        variants (sort-by :value (anagrams word))]
     (println (json/write-str variants))))

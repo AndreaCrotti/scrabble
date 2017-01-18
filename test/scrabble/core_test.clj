@@ -53,7 +53,13 @@
 
 
 (deftest str-to-tile-test
-  (are [tile tile-str] (= tile (str-to-tile tile-str))
-    {:pos 0 :letter \b :val nil} "b"
-    {:pos 0 :letter nil :val :tl} "3"
-    {:pos 0 :letter nil :val :dw} "6"))
+  (testing "test str to title"
+    (are [tile tile-str] (= tile (str-to-tile tile-str))
+      {:pos 0 :letter \b :val nil} "b"
+      {:pos 0 :letter nil :val :tl} "3"
+      {:pos 0 :letter nil :val :dw} "6")))
+
+(deftest anagrams-test
+  (testing "simple-anagrams"
+    (are [ans word] (= (anagrams word) ans)
+      #{"cab" "ac" "ca" "ba"} "abc")))

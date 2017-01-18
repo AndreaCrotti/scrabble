@@ -11,7 +11,7 @@
 (defn get-words [word]
   "Return all possible words"
   {:status 200
-   :body (json/write-str (scrabble/possibilities word))}
+   :body (json/write-str (scrabble/anagrams word))}
   )
 
 
