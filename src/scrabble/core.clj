@@ -101,9 +101,13 @@
   "Return all possible valid words from the given letters"
   ([letters]
    (anagrams letters (count letters)))
+
   ([letters max-size]
+   (anagrams letters max-size 1))
+
+  ([letters max-size min-size]
    (apply clojure.set/union
-          (for [size (range  max-size 1 -1)]
+          (for [size (range  max-size min-size -1)]
             (let [perms-words (perms-with-length letters size)]
               (intersection (set perms-words) (set all-words)))))))
 
