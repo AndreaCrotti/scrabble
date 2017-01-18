@@ -15,10 +15,7 @@
 (deftest test-word-values
   (testing "simple word value"
     (is (= (word-value "test") 4))
-    (is (= (word-value "") 0)))
-  (testing "word with different tiles settings"
-    (comment
-      (is (= (word-value "test" {0 :tl}) 6)))))
+    (is (= (word-value "") 0))))
 
 (deftest test-char-value
   (testing "simple char"
