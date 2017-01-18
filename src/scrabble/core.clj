@@ -1,11 +1,18 @@
 (ns scrabble.core
   (:require [clojure.string :as str]
+            [clojure.data.json :as json]
             [clojure.set :refer [intersection]]
             [clojure.tools.cli :refer [parse-opts]]
             [clojure.math.combinatorics :as combo])
   (:gen-class))
 
 (def dict-file "/usr/share/dict/american-english")
+
+(def mult-word {:dw 2
+                :tw 3})
+
+(def mult-char {:dl 2
+                :tl 3})
 
 (def points
   {1 [\a \e \i \o \r \s \t]
@@ -24,18 +31,33 @@
               {l weight})))]
     (into {} (flatten subsets))))
 
-;; evaluate constraints as well here if possible
-(def tile {2 :tw, 3 :dl, 5 :tl})
-
-(def row [{:pos 0 :letter nil :val nil}
-          {:pos 1 :letter \a :val :tw}
-          {:pos 2 :letter nil :val :tl}])
-
 (defn word-value [word]
   (apply + (map (fn [v] (get keyed-points v)) word)))
 
+(defn char-value [ch]
+  "Return the value of the given char"
+  (let [val-type (:val ch)
+        multiplier (get mult-char val-type 1)]
+    (* (get keyed-points (:letter ch) 0) multiplier)))
+
+(defn word-to-charpos [word]
+  (into {} (map-indexed (fn [idx v] {idx v}) word)))
+
 (defn word-value-tiles [tiles word]
-  17)
+  (let [charpos (word-to-charpos word)
+        to-fill-in (filter #(nil? (:letter %)) tiles)
+        pre-filled (filter #(not (nil? (:letter %))) tiles)
+        filled-in (for [tf to-fill-in]
+                    (assoc tf :letter (get charpos (:pos tf))))
+        partial-sum
+        (+
+         (apply + (map #(get keyed-points (:letter %)) pre-filled))
+         (apply + (map char-value filled-in)))
+        all-multipliers (map #(get mult-word % 1) (map :val filled-in))
+        word-multiplier (if (empty? all-multipliers)
+                          1
+                          (apply max all-multipliers))]
+    (* word-multiplier partial-sum)))
 
 (defonce all-words
   (->> dict-file
@@ -65,4 +87,4 @@
   (let [options (parse-opts args cli-options)
         word (nth (:arguments options) 0)
         variants (sort-by :value (possibilities word))]
-    (println variants)))
+    (println (json/write-str variants))))
