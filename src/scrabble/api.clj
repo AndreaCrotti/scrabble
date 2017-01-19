@@ -8,6 +8,7 @@
             [ring.middleware.json :refer [wrap-json-response]]
             [ring.middleware.defaults :refer [api-defaults wrap-defaults]]))
 
+
 (defn get-words [word]
   "Return all possible words"
   {:status 200

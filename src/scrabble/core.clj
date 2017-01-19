@@ -1,10 +1,11 @@
 (ns scrabble.core
-  (:require [clojure.string :as str]
+  (:gen-class)
+  (:require [clojure
+             [set :refer [intersection]]
+             [string :as str]]
             [clojure.data.json :as json]
-            [clojure.set :refer [intersection]]
-            [clojure.tools.cli :refer [parse-opts]]
-            [clojure.math.combinatorics :as combo])
-  (:gen-class))
+            [clojure.math.combinatorics :as combo]
+            [clojure.tools.cli :refer [parse-opts]]))
 
 (def dict-file "resources/american-english")
 
