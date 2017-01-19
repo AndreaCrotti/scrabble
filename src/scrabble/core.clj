@@ -6,7 +6,8 @@
             [clojure.math.combinatorics :as combo])
   (:gen-class))
 
-(def dict-file "/usr/share/dict/american-english")
+(def dict-file "resources/american-english")
+
 
 (def mult-word {:dw 2 :tw 3})
 (def mult-char {:ol 1 :dl 2 :tl 3})
@@ -83,8 +84,10 @@
 (defonce all-words
   (->> dict-file
        slurp
-      (str/split-lines)
-      (map str/lower-case)))
+       (str/split-lines)
+       (map str/lower-case)
+       (into #{})
+       (into [])))
 
 (defn anagrams
   "Return all possible valid words from the given letters"
