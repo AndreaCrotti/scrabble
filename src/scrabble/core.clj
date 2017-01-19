@@ -76,26 +76,15 @@
                       {:pos idx :letter letter :val sym}))
          tile-str)))
 
+(defn perms-with-length [letters size]
+  "Permutations by length"
+  (map str/join (set (map #(take size %) (combo/permutations letters)))))
+
 (defonce all-words
   (->> dict-file
        slurp
       (str/split-lines)
       (map str/lower-case)))
-
-(defn permute-with-tiles [tiles letters]
-  (let [empty-cells
-        (filter #(nil? (:letter %)) tiles)
-        filled-cells
-        (filter #(not (nil? (:letter %))) tiles)
-        max-length (count tiles)
-        max-to-use (count empty-cells)]
-    (for [an (anagrams letters max-to-use)]
-      (let [letters-dict (map (fn [v] {:letter v}) an)]
-        (concat filled-cells  (map merge empty-cells letters-dict))))))
-
-(defn perms-with-length [letters size]
-  "Permutations by length"
-  (map str/join (set (map #(take size %) (combo/permutations letters)))))
 
 (defn anagrams
   "Return all possible valid words from the given letters"
@@ -110,6 +99,17 @@
           (for [size (range  max-size min-size -1)]
             (let [perms-words (perms-with-length letters size)]
               (intersection (set perms-words) (set all-words)))))))
+
+(defn permute-with-tiles [tiles letters]
+  (let [empty-cells
+        (filter #(nil? (:letter %)) tiles)
+        filled-cells
+        (filter #(not (nil? (:letter %))) tiles)
+        max-length (count tiles)
+        max-to-use (count empty-cells)]
+    (for [an (anagrams letters max-to-use)]
+      (let [letters-dict (map (fn [v] {:letter v}) an)]
+        (concat filled-cells  (map merge empty-cells letters-dict))))))
 
 (def cli-options
   ;; An option with a required argument
