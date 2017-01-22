@@ -1,7 +1,7 @@
 (ns scrabble.api
   (:gen-class)
   (:require [compojure
-             [core :refer :all]
+             [core :refer [GET POST defroutes]]
              [route :as route]]
             [clojure.data.json :as json]
             [scrabble.core :as scrabble]
@@ -18,7 +18,6 @@
 
 (defroutes app-routes
   (GET "/" [] "Not defined")
-  (GET "/words" [word] (get-words word))
   (GET "/anagrams" [word] (get-words word))
   (route/not-found "URL not found"))
 
