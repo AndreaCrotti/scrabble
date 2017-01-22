@@ -65,3 +65,10 @@
   (testing "simple-anagrams"
     (are [ans word] (= (anagrams word) ans)
       #{"ab" "cab" "cb" "ac" "ca" "abc" "ba" "bc"} "abc")))
+
+
+(deftest matches-test
+  (testing "get the best possible placements"
+    (are [solutions tiles-str letters] (= (matches (str-to-tile tiles-str) letters false) solutions)
+      {"ab" 5, "ba" 5} "11" "ab"
+      {"ab" 9 "ba" 6} "12" "ab")))

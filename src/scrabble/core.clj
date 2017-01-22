@@ -115,6 +115,20 @@
       (let [letters-dict (map (fn [v] {:letter v}) an)]
         (concat filled-cells  (map merge empty-cells letters-dict))))))
 
+(defn matches
+  ([tiles letters]
+   (matches tiles letters true))
+  ([tiles letters only-existing]
+   (let [perms (permute-with-tiles tiles letters)
+         all-matches
+         (into {}
+               (for [word perms]
+                 (let [w (str/join "" (map :letter word))]
+                   {w (word-value-tiles tiles w)})))]
+     (if only-existing
+       (filter #(contains? all-words %) all-matches)
+       all-matches))))
+
 (def cli-options
   ;; An option with a required argument
   [["-w" "--word" "Word to analyze"
