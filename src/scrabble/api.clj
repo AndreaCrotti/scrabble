@@ -15,10 +15,15 @@
    :body (json/write-str (scrabble/anagrams word))}
   )
 
+(defn valued-anagrams [tiles word]
+  (let [res (scrabble/valued-anagrams tiles word)]
+    {:status 200
+     :body (json/write-str res)}))
 
 (defroutes app-routes
   (GET "/" [] "Not defined")
   (GET "/anagrams" [word] (get-words word))
+  (GET "/valued-anagrams" [tiles word] (valued-anagrams tiles word))
   (route/not-found "URL not found"))
 
 (def app

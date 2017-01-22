@@ -104,6 +104,13 @@
             (let [perms-words (perms-with-length letters size)]
               (intersection (set perms-words) (set all-words)))))))
 
+(defn valued-anagrams [tiles word]
+  (let [tiles-obj (str-to-tile tiles)
+        ans (anagrams word)
+        valued (map (partial word-value-tiles tiles-obj) ans)
+        res (zipmap ans valued)]
+    (reverse (sort-by second res))))
+
 (defn permute-with-tiles [tiles letters]
   (let [empty-cells
         (filter #(nil? (:letter %)) tiles)
