@@ -31,3 +31,8 @@
    (assoc db :language language)))
 
 ;; the number of points will depend automatically on the language that was currently chosen
+
+(reg-event-db
+ :set-tile
+ (fn [db [_ idx tile]]
+   (assoc-in db [:tiles idx] tile)))

@@ -25,7 +25,8 @@
                  [ring/ring-defaults "0.2.2"]
                  [ring/ring-json "0.4.0"]
                  [devcards "0.2.2"]
-                 [cljs-ajax "0.5.8"]]
+                 [cljs-ajax "0.5.8"]
+                 [secretary "1.2.3"]]
 
   :uberjar-name "scrabble.jar"
   :plugins [[lein-ring "0.8.13"]

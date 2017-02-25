@@ -3,5 +3,5 @@
 
 
 (defstyles screen
-  [:italian {:font-color "#aaaaaa"}]
+  [:language.selected :center]
 )

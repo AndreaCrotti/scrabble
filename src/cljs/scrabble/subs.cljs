@@ -7,8 +7,12 @@
  (fn [db]
    (:name db)))
 
-
 (reg-sub
  :current-language
  (fn [db]
    (:language db)))
+
+(reg-sub
+ :tile
+ (fn [db [_ idx]]
+   (get idx (:tiles db) "1")))

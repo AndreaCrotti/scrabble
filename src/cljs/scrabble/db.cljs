@@ -7,5 +7,5 @@
    :language :english
    :word-meaning {} ; cache meaning of the words just looked up, otherwise just add a link for now
    :available-letters {} ; just a {\a 2 \b 3 :jolly 1} for example
-   :tile-configuration {} ; keyed by the position and containing the type of the tyle
+   :tiles {} ; keyed by the position and containing the type of the tyle
    })

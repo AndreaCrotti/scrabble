@@ -3,6 +3,8 @@
             [goog.string :as gstring]
             [cljs.spec :as spec]))
 
+(def ^:const MAX-TILES 10)
+
 ;; the page is composed of
 ;; - a tile editor: to be able to enter the current situation
 ;; - the available letters
@@ -27,17 +29,29 @@
 
     [:input full-props]))
 
+;; this should be in a header on the right, find out how to align it properly
 (defn lang-selection []
   (let [current-language (subscribe [:current-language])]
     (fn []
       (into
-       [:g
+       [:g {:class "language-group"}
         (make-lang :italian @current-language)
         (make-lang :english @current-language)]))))
+
+(defn make-tile [idx]
+  (let [tile (subscribe [:tile idx])]
+    ;; very simple input box with 1 or two chars
+    ;; valid values could be 1/2p/3p/2l/3l
+    ;; TODO: show some validation directly in here
+    [:input {:type "text"
+             :placeholder @tile
+             :class "tile-input"
+             :on-change #(dispatch [:set-tile idx (-> % .-target .-value)])}]))
 
 (defn main-panel []
   ;; might even not need a function at all here
   (fn []
     ;; make it possible to change the number of players??
-    (lang-selection)
-    #_[:div "Hello world"]))
+    (into [:g]
+          (for [n (range MAX-TILES)]
+            (make-tile n)))))
