@@ -10,11 +10,30 @@
 ;; Once the tile and the letters are given, we can provide the various
 ;; options in graphical form, sorting by the most convenient first
 
+(defn- set-lang [lang]
+  (dispatch [:set-language lang]))
+
+(def flag-files
+  {:italian "italian.png"
+   :english "english.png"})
+
+(defn make-lang [lang current-language]
+  (let [selected (= lang current-language)
+        png-file (lang flag-files)
+        props {:type "image" :src png-file}
+        full-props (if selected
+                     (assoc props :class "language.selected" )
+                     (assoc props :on-click #(dispatch [:set-language lang])))]
+
+    [:input full-props]))
+
 (defn lang-selection []
-  (letfn [(setlang [lang] (dispatch [:set-language lang]))]
-    [:g
-     [:input {:type "image" :src "italian.png" :on-click #(setlang :italian)}]
-     [:input {:type "image" :src "english.png" :on-click #(setlang :english)}]]))
+  (let [current-language (subscribe [:current-language])]
+    (fn []
+      (into
+       [:g
+        (make-lang :italian @current-language)
+        (make-lang :english @current-language)]))))
 
 (defn main-panel []
   ;; might even not need a function at all here
