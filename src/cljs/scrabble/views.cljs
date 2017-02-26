@@ -15,8 +15,8 @@
   (dispatch [:set-language lang]))
 
 (def flag-files
-  {:italian "italian.png"
-   :english "english.png"})
+  (zipmap const/AVAILABLE-LANGUAGES
+          (map #(subs (str % ".png") 1) const/AVAILABLE-LANGUAGES)))
 
 (defn make-lang [lang current-language]
   (let [selected (= lang current-language)
@@ -54,7 +54,6 @@
    [:div {:class "letters-editor"}]
    (for [n (range const/MAX-LETTERS)]
      (let [letter (subscribe [:letter n])]
-       (prn "got letter" @letter)
        [:input {:type "text"
                 ;;:value @letter
                 :class "letter-input"
