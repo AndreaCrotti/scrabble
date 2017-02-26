@@ -1,10 +1,11 @@
 (ns scrabble.core-test
   (:require [scrabble.core :as scrabble]
-            [clojure.test :as t]))
+            [clojure.test :as t]
+            [scrabble.constants :as const]))
 
 (t/deftest test-key-points
   (let [number-letters
-        (apply + (map count (vals scrabble/points)))]
+        (apply + (map count (vals (:english const/POINTS))))]
 
     (t/testing "right number of characters"
       (t/is (= 26 number-letters)))
