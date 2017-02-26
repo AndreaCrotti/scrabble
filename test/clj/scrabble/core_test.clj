@@ -11,7 +11,7 @@
       (t/is (= 26 number-letters)))
 
     (t/testing "length is the same"
-      (t/is (= (count scrabble/keyed-points) number-letters)))))
+      (t/is (= (count (:english const/KEYED-POINTS)) number-letters)))))
 
 (t/deftest test-word-values
   (t/testing "simple word value"

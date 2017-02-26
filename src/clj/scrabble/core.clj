@@ -12,23 +12,14 @@
 (def mult-word {:dw 2 :tw 3})
 (def mult-char {:ol 1 :dl 2 :tl 3})
 
-;; There should be an easier way to do this transformation
-(def keyed-points
-  (let [subsets
-        (for [p (:english const/POINTS)]
-          (let [[weight letters] p]
-            (for [l letters]
-              {l weight})))]
-    (into {} (flatten subsets))))
-
 (defn word-value [word]
-  (apply + (map (fn [v] (get keyed-points v)) word)))
+  (apply + (map (fn [v] (get (:english const/KEYED-POINTS) v)) word)))
 
 (defn char-value [ch]
   "Return the value of the given char"
   (let [val-type (:val ch)
         multiplier (get mult-char val-type 1)]
-    (* (get keyed-points (:letter ch) 0) multiplier)))
+    (* (get (:english const/KEYED-POINTS) (:letter ch) 0) multiplier)))
 
 (defn word-to-charpos [word]
   (into {} (map-indexed (fn [idx v] {idx v}) word)))
@@ -41,7 +32,7 @@
                     (assoc tf :letter (get charpos (:pos tf))))
         partial-sum
         (+
-         (apply + (map #(get keyed-points (:letter %)) pre-filled))
+         (apply + (map #(get (:english const/KEYED-POINTS) (:letter %)) pre-filled))
          (apply + (map char-value filled-in)))
         all-multipliers (map #(get mult-word % 1) (map :val filled-in))
         word-multiplier (if (empty? all-multipliers)
