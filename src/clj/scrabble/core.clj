@@ -60,13 +60,13 @@
 ;; of strings, with the symbols inside them
 (defn str-to-tile [tile-str]
   "Convert a string representation of tiles to the list of maps"
-  (into []
-        (map-indexed
-         (fn [idx v] (let [sym
-                          (get mult-char-to-keyword v nil)
-                          letter (if (nil? sym) v nil)]
-                      {:pos idx :letter letter :val sym}))
-         tile-str)))
+  (vec
+   (map-indexed
+    (fn [idx v] (let [sym
+                     (get mult-char-to-keyword v nil)
+                     letter (when (nil? sym) v)]
+                 {:pos idx :letter letter :val sym}))
+    tile-str)))
 
 (defn perms-with-length [letters size]
   "Permutations by length"

@@ -16,13 +16,15 @@
 (t/deftest test-word-values
   (t/testing "simple word value"
     (t/is (= (scrabble/word-value "test") 4))
-    (t/is (= (scrabble/word-value "") 0))))
+    (t/is (zero? (scrabble/word-value "")))))
 
 (t/deftest test-char-value
   (t/testing "simple char"
     (t/is (= (scrabble/char-value {:pos 0 :letter \a :val nil}) 1))
     (t/is (= (scrabble/char-value {:pos 0 :letter \a :val :tl}) 3))))
 
+;; could do a simple map of all the possible options
+;; and refacotr this mess here
 (t/deftest test-word-values-tiles
   (let [tiles
         [{:pos 0 :letter nil :val nil}
@@ -31,15 +33,18 @@
         word "b c"]
     (t/testing "words with positions and numbers"
       (t/is (= (scrabble/word-value-tiles tiles word) 17))))
+
   (let [tiles
         [{:pos 0 :letter nil :val :tw}]
         word "b"]
     (t/testing "one character word"
       (t/is (= (scrabble/word-value-tiles tiles word) 12))))
+
   (let [tiles [{:pos 0 :letter \a :val :tw}]
         word ""]
     (t/testing "Passing partial information"
       (t/is (= (scrabble/word-value-tiles tiles word) 1))))
+
   (let [tiles
         [{:pos 0 :letter \a :val :tw}]
         word "b"]
