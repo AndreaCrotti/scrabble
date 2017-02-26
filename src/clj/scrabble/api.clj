@@ -9,8 +9,9 @@
             [ring.middleware.defaults :refer [api-defaults wrap-defaults]]))
 
 
-(defn get-words [word]
+(defn get-words
   "Return all possible words"
+  [word]
   {:status 200
    :body (json/write-str (scrabble/anagrams word))}
   )

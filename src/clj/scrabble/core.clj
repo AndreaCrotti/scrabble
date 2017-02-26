@@ -17,8 +17,9 @@
 (defn word-value [word]
   (apply + (map (fn [v] (get (:english const/KEYED-POINTS) v)) word)))
 
-(defn char-value [ch]
+(defn char-value
   "Return the value of the given char"
+  [ch]
   (let [val-type (:val ch)
         multiplier (get mult-char val-type 1)]
     (* (get (:english const/KEYED-POINTS) (:letter ch) 0) multiplier)))
@@ -51,8 +52,9 @@
 
 ;; another representation could be a simple comma separated list
 ;; of strings, with the symbols inside them
-(defn str-to-tile [tile-str]
+(defn str-to-tile
   "Convert a string representation of tiles to the list of maps"
+  [tile-str]
   (vec
    (map-indexed
     (fn [idx v] (let [sym
@@ -61,8 +63,9 @@
                  {:pos idx :letter letter :val sym}))
     tile-str)))
 
-(defn perms-with-length [letters size]
+(defn perms-with-length
   "Permutations by length"
+  [letters size]
   (map str/join (set (map #(take size %) (combo/permutations letters)))))
 
 (defonce all-words
