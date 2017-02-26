@@ -5,27 +5,17 @@
              [string :as str]]
             [clojure.data.json :as json]
             [clojure.math.combinatorics :as combo]
-            [clojure.tools.cli :refer [parse-opts]]))
-
-(def dict-file "resources/american-english")
+            [clojure.tools.cli :refer [parse-opts]]
+            [scrabble.constants :as const]))
 
 
 (def mult-word {:dw 2 :tw 3})
 (def mult-char {:ol 1 :dl 2 :tl 3})
 
-(def points
-  {1 [\a \e \i \o \r \s \t]
-   2 [\d \l \n \u]
-   3 [\g \h \y]
-   4 [\b \c \f \m \p]
-   5 [\k \w \v]
-   8 [\x]
-   10 [\j \q \z]})
-
 ;; There should be an easier way to do this transformation
 (def keyed-points
   (let [subsets
-        (for [p points]
+        (for [p (:english const/POINTS)]
           (let [[weight letters] p]
             (for [l letters]
               {l weight})))]
@@ -83,7 +73,7 @@
   (map str/join (set (map #(take size %) (combo/permutations letters)))))
 
 (defonce all-words
-  (->> dict-file
+  (->> (:english const/DICT-FILES)
        slurp
        (str/split-lines)
        (map str/lower-case)

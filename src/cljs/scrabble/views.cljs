@@ -54,8 +54,9 @@
    [:div {:class "letters-editor"}]
    (for [n (range const/MAX-LETTERS)]
      (let [letter (subscribe [:letter n])]
+       (prn "got letter" @letter)
        [:input {:type "text"
-                :value @letter
+                ;;:value @letter
                 :class "letter-input"
                 :on-change #(dispatch [:set-letter n (-> % .-target .-value)])}]))))
 
