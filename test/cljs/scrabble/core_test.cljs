@@ -1,8 +1,7 @@
 (ns scrabble.core-test
-  (:require #_[cljs.scrabble.core :as sut]
+  (:require [cljs.scrabble.views :as views]
             [cljs.test :as t :include-macros true]))
 
 
-(t/deftest try-out-test
-  (t/testing "Check"
-    (t/is (= 1 (+ 0 1)))))
+(t/deftest make-tile-test
+  (t/is (= [] (views/make-tile 0))))

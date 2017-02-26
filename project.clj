@@ -54,6 +54,9 @@
                      :stylesheet   scrabble.css/screen
                      :compiler     {:output-to     "resources/public/css/screen.css"
                                     :pretty-print? true}}]}
+
+  ;; add a default build and a way to execute phantomjs
+  ;; automatically if possible
   :doo {:build "test"}
 
   :hooks [environ.leiningen.hooks]
