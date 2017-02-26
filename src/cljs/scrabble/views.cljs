@@ -51,10 +51,6 @@
                :class "tile-input"
                :on-change #(dispatch [:set-tile idx (-> % .-target .-value)])}])))
 
-(defn sample-form-two []
-  (fn []
-    [:div "Hello"]))
-
 (defn available-letters []
   (fn []
     (into
