@@ -32,7 +32,13 @@
 
 ;; the number of points will depend automatically on the language that was currently chosen
 
+;; these two are really the same thing in a way
 (reg-event-db
  :set-tile
  (fn [db [_ idx tile]]
    (assoc-in db [:tiles idx] tile)))
+
+(reg-event-db
+ :set-letter
+ (fn [db [_ idx tile]]
+   (assoc-in db [:letters idx] tile)))

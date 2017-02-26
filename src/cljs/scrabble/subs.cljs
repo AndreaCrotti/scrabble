@@ -16,3 +16,8 @@
  :tile
  (fn [db [_ idx]]
    (get idx (:tiles db) "1")))
+
+(reg-sub
+ :letter
+ (fn [db [_ idx]]
+   (get idx (:letters db) "")))

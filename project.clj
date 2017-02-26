@@ -12,7 +12,7 @@
                  [metosin/ring-http-response "0.8.1"]
                  [mutant "0.1.0"]
                  [org.clojure/clojure "1.8.0"]
-                 [org.clojure/clojurescript "1.9.473"]
+                 [org.clojure/clojurescript "1.9.494"]
                  [org.clojure/core.async "0.3.441"]
                  [org.clojure/data.json "0.2.6"]
                  [org.clojure/math.combinatorics "0.1.4"]
@@ -26,7 +26,8 @@
                  [ring/ring-json "0.4.0"]
                  [devcards "0.2.2"]
                  [cljs-ajax "0.5.8"]
-                 [secretary "1.2.3"]]
+                 [secretary "1.2.3"]
+                 [org.clojure/test.check "0.9.0"]]
 
   :uberjar-name "scrabble.jar"
   :plugins [[lein-ring "0.8.13"]

@@ -4,6 +4,7 @@
             [cljs.spec :as spec]))
 
 (def ^:const MAX-TILES 10)
+(def ^:const MAX-LETTERS 7)
 
 ;; the page is composed of
 ;; - a tile editor: to be able to enter the current situation
@@ -25,18 +26,21 @@
         props {:type "image" :src png-file}
         full-props (if selected
                      (assoc props :class "language.selected" )
-                     (assoc props :on-click #(dispatch [:set-language lang])))]
+                     (assoc props
+                            :class "language.not-selected"
+                            :on-click #(dispatch [:set-language lang])))]
 
     [:input full-props]))
 
 ;; this should be in a header on the right, find out how to align it properly
+
 (defn lang-selection []
   (let [current-language (subscribe [:current-language])]
-    (fn []
-      (into
-       [:g {:class "language-group"}
-        (make-lang :italian @current-language)
-        (make-lang :english @current-language)]))))
+    ;; (fn [])
+    (into
+     [:div {:class "language-group"}
+      (make-lang :italian @current-language)
+      (make-lang :english @current-language)])))
 
 (defn make-tile [idx]
   (let [tile (subscribe [:tile idx])]
@@ -48,10 +52,27 @@
              :class "tile-input"
              :on-change #(dispatch [:set-tile idx (-> % .-target .-value)])}]))
 
+(defn available-letters []
+  (into
+   [:div {:class "letters-editor"}]
+   (for [n (range MAX-LETTERS)]
+     (let [letter (subscribe [:letter n])]
+       [:input {:type "text"
+                :value @letter
+                :class "letter-input"
+                :on-change #(dispatch [:set-letter n (-> % .-target .-value)])}]))))
+
 (defn main-panel []
   ;; might even not need a function at all here
   (fn []
     ;; make it possible to change the number of players??
     (into [:g]
-          (for [n (range MAX-TILES)]
-            (make-tile n)))))
+          (concat
+           [(lang-selection)]
+           [(into
+             [:g {:class "tile-editor"}]
+
+             (for [n (range MAX-TILES)]
+               (make-tile n)))]
+
+           [(available-letters)]))))
