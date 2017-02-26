@@ -1,11 +1,8 @@
 (ns scrabble.views
   (:require [re-frame.core :as re-frame :refer [dispatch subscribe]]
+            [scrabble.constants :as const]
             [goog.string :as gstring]
             [cljs.spec :as spec]))
-
-(def ^:const MAX-TILES 10)
-(def ^:const MAX-LETTERS 7)
-(def ^:const AVAILABLE-LANGUAGES ^:const #{:english :italian})
 
 ;; the page is composed of
 ;; - a tile editor: to be able to enter the current situation
@@ -39,7 +36,7 @@
   (let [current-language (subscribe [:current-language])]
     (into
      [:div {:class "language-group"}]
-     (for [lang AVAILABLE-LANGUAGES]
+     (for [lang const/AVAILABLE-LANGUAGES]
        (make-lang lang @current-language)))))
 
 (defn make-tile [idx]
@@ -55,7 +52,7 @@
 (defn available-letters []
   (into
    [:div {:class "letters-editor"}]
-   (for [n (range MAX-LETTERS)]
+   (for [n (range const/MAX-LETTERS)]
      (let [letter (subscribe [:letter n])]
        [:input {:type "text"
                 :value @letter
@@ -72,7 +69,7 @@
            [(into
              [:g {:class "tile-editor"}]
 
-             (for [n (range MAX-TILES)]
+             (for [n (range const/MAX-TILES)]
                (make-tile n)))]
 
            [(available-letters)]))))
