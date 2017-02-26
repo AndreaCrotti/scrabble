@@ -1,7 +1,5 @@
 (ns scrabble.db)
 
-(def AVAILABLE-LANGUAGES ^:const #{:english :italian})
-
 (def default-db
   {:name "re-frame"
    :language :english

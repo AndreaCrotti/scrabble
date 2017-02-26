@@ -5,6 +5,7 @@
 
 (def ^:const MAX-TILES 10)
 (def ^:const MAX-LETTERS 7)
+(def ^:const AVAILABLE-LANGUAGES ^:const #{:english :italian})
 
 ;; the page is composed of
 ;; - a tile editor: to be able to enter the current situation
@@ -36,11 +37,10 @@
 
 (defn lang-selection []
   (let [current-language (subscribe [:current-language])]
-    ;; (fn [])
     (into
-     [:div {:class "language-group"}
-      (make-lang :italian @current-language)
-      (make-lang :english @current-language)])))
+     [:div {:class "language-group"}]
+     (for [lang AVAILABLE-LANGUAGES]
+       (make-lang lang @current-language)))))
 
 (defn make-tile [idx]
   (let [tile (subscribe [:tile idx])]
