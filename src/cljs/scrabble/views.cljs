@@ -71,6 +71,6 @@
 
      (into [:g {:class "tile-editor"}
             (for [n (range const/MAX-TILES)]
-              [make-tile 0])])
+              [make-tile n])])
 
      [available-letters]]))
