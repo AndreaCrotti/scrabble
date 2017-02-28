@@ -19,3 +19,11 @@
 (reg-sub
  :results
  :results)
+
+(reg-sub
+ :word-to-anagram
+ :word-to-anagram)
+
+(reg-sub
+ :anagrams
+ :anagrams)

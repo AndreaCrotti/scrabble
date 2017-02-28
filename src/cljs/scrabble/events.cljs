@@ -48,3 +48,14 @@
  (fn [db _]
    ;; use juxt here instead?
    (assoc db :results (find-matches (:language db) (:tiles db) (:letters db)))))
+
+(reg-event-db
+ :fetch-anagrams
+ (fn [db _]
+   (prn db)
+   (assoc db :anagrams ["hello" "world"])))
+
+(reg-event-db
+ :set-word-to-anagram
+ (fn [db [_ word-to-anagram]]
+   (assoc db :word-to-anagram word-to-anagram)))

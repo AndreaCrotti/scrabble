@@ -71,6 +71,21 @@
        [:div {:class "results"}]
        (map (fn [[fst snd]] [:div (str "Word: " fst " Value: " snd)]) @results)))))
 
+(defn anagram-input []
+  (let [inp (subscribe [:word-to-anagram])]
+    (fn []
+      [:div {:class "anagram-input"}
+       [:input {:type "text"
+                :on-change #(dispatch [:set-word-to-anagram (-> % .-target .-value)])}]])))
+
+(defn anagrams-results []
+  (let [ans (subscribe [:anagrams])]
+    (fn []
+      (into
+       [:div {:class "ans"}]
+       (map (fn [v] [:div v]) @ans)))))
+
+
 (defn main-panel []
   ;; might even not need a function at all here
   (fn []
@@ -91,4 +106,11 @@
      
      ;; legend reminding all the available values
      
-     [results]]))
+     [results]
+     [anagram-input]
+
+     [:button {:id "get-anagrams"
+               :on-click #(dispatch [:fetch-anagrams])}
+      "Show the anagrams"]
+     
+     [anagrams-results]]))

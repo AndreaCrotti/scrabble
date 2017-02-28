@@ -114,6 +114,7 @@
 (defn matches
   ([tiles letters]
    (matches tiles letters true))
+
   ([tiles letters only-existing]
    (let [perms (permute-with-tiles tiles letters)
          all-matches
