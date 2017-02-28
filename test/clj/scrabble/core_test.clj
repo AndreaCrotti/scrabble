@@ -72,6 +72,9 @@
     (t/are [ans word] (= (scrabble/anagrams word) ans)
       #{"ab" "cab" "cb" "ac" "ca" "abc" "ba" "bc"} "abc")))
 
+(t/deftest valued-anagrams-test
+  (t/testing "valued-anagrams"
+    (t/is (= (scrabble/valued-anagrams "211e1" "friend") '(["fined" 14] ["fired" 13] ["fried" 13] ["finer" 13] ["infer" 10] ["diner" 9])) )))
 
 (t/deftest matches-test
   (t/testing "get the best possible placements"
