@@ -6,7 +6,6 @@
             [clojure.data.json :as json]
             [scrabble.core :as scrabble]
             [ring.middleware.json :refer [wrap-json-response]]
-            [ring.middleware.cors :refer [wrap-cors]]
             [ring.middleware.defaults :refer [api-defaults wrap-defaults]]))
 
 (defn get-words
@@ -32,4 +31,4 @@
 
 (def app
   (wrap-json-response app-routes api-defaults))
-#_:access-control-allow-origin [#"http://localhost:3449"]
+

@@ -27,8 +27,7 @@
                  [devcards "0.2.2"]
                  [cljs-ajax "0.5.8"]
                  [secretary "1.2.3"]
-                 [org.clojure/test.check "0.9.0"]
-                 [ring-cors "0.1.9"]]
+                 [org.clojure/test.check "0.9.0"]]
 
   :uberjar-name "scrabble.jar"
   :plugins [[lein-ring "0.8.13"]
