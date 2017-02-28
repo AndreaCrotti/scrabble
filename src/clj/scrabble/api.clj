@@ -6,13 +6,17 @@
             [clojure.data.json :as json]
             [scrabble.core :as scrabble]
             [ring.middleware.json :refer [wrap-json-response]]
+            [ring.middleware.cors :refer [wrap-cors]]
             [ring.middleware.defaults :refer [api-defaults wrap-defaults]]))
 
 (defn get-words
   "Return all possible words"
   [word]
+  (prn "Got request for word " word)
   {:status 200
-   :body (json/write-str (scrabble/anagrams word))})
+   :body (json/write-str (scrabble/anagrams word))
+   :headers {"Access-Control-Allow-Origin" "*"
+             "Access-Control-Allow-Headers" "Content-Type"}})
 
 (defn valued-anagrams [tiles word]
   (let [res (scrabble/valued-anagrams tiles word)]
@@ -28,3 +32,4 @@
 
 (def app
   (wrap-json-response app-routes api-defaults))
+#_:access-control-allow-origin [#"http://localhost:3449"]

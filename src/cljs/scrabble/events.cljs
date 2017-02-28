@@ -1,7 +1,7 @@
 (ns scrabble.events
   (:require [re-frame.core :as re-frame :refer [reg-event-db]]
             [scrabble.db :as db]
-            [scrabble.query :as query :refer [find-matches]]
+            [scrabble.query :as query :refer [find-matches get-anagrams]]
             [ajax.core :refer [GET POST]]))
 
 (reg-event-db
@@ -52,8 +52,9 @@
 (reg-event-db
  :fetch-anagrams
  (fn [db _]
-   (prn db)
-   (assoc db :anagrams ["hello" "world"])))
+   (let [tmp (get-anagrams (:word-to-anagram db))]
+     (prn tmp)
+     (assoc db :anagrams tmp))))
 
 (reg-event-db
  :set-word-to-anagram
