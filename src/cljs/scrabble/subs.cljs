@@ -15,3 +15,7 @@
  :letter
  (fn [db [_ idx]]
    (get idx (:letters db) "")))
+
+(reg-sub
+ :results
+ :results)

@@ -32,7 +32,9 @@
 
 ;; this should be in a header on the right, find out how to align it properly
 
-(defn lang-selection []
+(defn lang-selection
+  "Define all the possible languages as sequences of clickable images"
+  []
   (let [current-language (subscribe [:current-language])]
     (fn []
       (into
@@ -62,6 +64,13 @@
                   :class "letter-input"
                   :on-change #(dispatch [:set-letter n (-> % .-target .-value)])}])))))
 
+(defn results []
+  (let [results (subscribe [:results])]
+    (fn []
+      (into
+       [:div {:class "results"}]
+       (map (fn [[fst snd]] [:div (str "Word: " fst " Value: " snd)]) @results)))))
+
 (defn main-panel []
   ;; might even not need a function at all here
   (fn []
@@ -73,4 +82,13 @@
             (for [n (range const/MAX-TILES)]
               [make-tile n])])
 
-     [available-letters]]))
+     [available-letters]
+
+     ;; how can I add more classes?
+     [:button {:id "submit-button"
+               :on-click #(dispatch [:get-results])}
+      "Find The Best Word, now!"]
+     
+     ;; legend reminding all the available values
+     
+     [results]]))

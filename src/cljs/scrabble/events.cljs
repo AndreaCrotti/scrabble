@@ -1,7 +1,7 @@
 (ns scrabble.events
   (:require [re-frame.core :as re-frame :refer [reg-event-db]]
             [scrabble.db :as db]
-            [goog.string :as gstring]
+            [scrabble.query :as query :refer [find-matches]]
             [ajax.core :refer [GET POST]]))
 
 (reg-event-db
@@ -42,3 +42,9 @@
  :set-letter
  (fn [db [_ idx tile]]
    (assoc-in db [:letters idx] tile)))
+
+(reg-event-db
+ :get-results
+ (fn [db _]
+   ;; use juxt here instead?
+   (assoc db :results (find-matches (:language db) (:tiles db) (:letters db)))))
