@@ -83,7 +83,7 @@
                    [re-frisk "0.3.2"]
                    [reloaded.repl "0.2.3"]
                    [ring-mock "0.1.5"]]}}
-  
+
   :cljsbuild
   {:builds
    [{:id           "dev"

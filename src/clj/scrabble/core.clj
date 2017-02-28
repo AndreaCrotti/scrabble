@@ -86,17 +86,19 @@
 
   ([letters max-size min-size]
    (apply clojure.set/union
-          (for [size (range  max-size min-size -1)]
+          (for [size (range max-size min-size -1)]
             (let [perms-words (perms-with-length letters size)]
               (intersection (set perms-words) (set all-words)))))))
 
 (defn valued-anagrams
   [tiles word]
   "Return all the possible evaluations of the anagrams given the tiles"
-  (let [tiles-obj (str-to-tile tiles)
+  (let [patt (re-pattern (str "^" (clojure.string/replace tiles #"\d" "[a-z]") "$"))
+        tiles-obj (str-to-tile tiles)
         ans (anagrams word)
-        valued (map (partial word-value-tiles tiles-obj) ans)
-        res (zipmap ans valued)]
+        filtered-ans (filter some? (map #(re-matches patt %) ans))
+        valued (map (partial word-value-tiles tiles-obj) filtered-ans)
+        res (zipmap filtered-ans valued)]
 
     (reverse (sort-by second res))))
 
