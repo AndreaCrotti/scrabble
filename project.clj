@@ -63,7 +63,7 @@
   :ring {:handler scrabble.api/app
          :auto-reload? true
          :auto-refresh? true}
-  :main ^:skip-aot scrabble.core
+  :main ^:skip-aot scrabble.cli
   :target-path "target/%s"
   :profiles
 

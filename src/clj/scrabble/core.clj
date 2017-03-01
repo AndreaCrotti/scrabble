@@ -5,9 +5,7 @@
   (:require [clojure
              [set :refer [intersection]]
              [string :as str]]
-            [clojure.data.json :as json]
             [clojure.math.combinatorics :as combo]
-            [clojure.tools.cli :refer [parse-opts]]
             [scrabble.constants :as const]))
 
 
@@ -127,18 +125,3 @@
      (if only-existing
        (filter #(contains? all-words %) all-matches)
        all-matches))))
-
-(def cli-options
-  ;; An option with a required argument
-  [["-w" "--word" "Word to analyze"
-    :default "friend"
-    :validate [#(pos? (count %)) "Must not be an empty word"]]
-   ["-t", "--tiles", "tiles configuration"]
-   ["-h" "--help"]])
-
-(defn -main
-  [& args]
-  (let [options (parse-opts args cli-options)
-        word (nth (:arguments options) 0)
-        variants (sort-by :value (anagrams word))]
-    (println (json/write-str variants))))
