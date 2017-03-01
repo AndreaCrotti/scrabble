@@ -14,6 +14,8 @@
   (prn "Got request for word " word)
   {:status 200
    :body (json/write-str (scrabble/anagrams word))
+   ;; TODO: implement some more proper security here instead
+   ;; with the right settings on deployment
    :headers {"Access-Control-Allow-Origin" "*"
              "Access-Control-Allow-Headers" "Content-Type"}})
 

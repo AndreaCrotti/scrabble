@@ -9,7 +9,7 @@
   [["-w" "--word" "Word to analyze"
     :default "friend"
     :validate [#(pos? (count %)) "Must not be an empty word"]]
-   ["-t", "--tiles", "tiles configuration"]
+
    ["-h" "--help"]])
 
 (defn -main

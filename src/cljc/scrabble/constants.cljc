@@ -1,5 +1,9 @@
 (ns scrabble.constants)
 
+(def ^:const JOLLY-CHAR
+  "Symbol to use for the jolly letter"
+  \*)
+
 (def ^:const MAX-TILES
   "Maxmium number of tiles to consider"
   10)
@@ -31,13 +35,28 @@
     8 [\x]
     10 [\j \q \z]}})
 
+(def ^:const LANGUAGES
+  "Available languages"
+  (keys POINTS))
+
+(defn points-to-alphabet [language]
+  ;; an easier way to do this maybe?
+  (conj (apply concat (vals (language POINTS))) JOLLY-CHAR))
+
+(def ALPHABET
+  "Valid alphabet for each language, derived from the points definition"
+  (zipmap LANGUAGES
+          (map points-to-alphabet LANGUAGES)))
+
 (defn- keyed-points [language]
   "Simple structural transformation to make it easier to play with points"
   (let [subsets
+        ;; can probably be simplified slightly
         (for [p (language POINTS)]
           (let [[weight letters] p]
             (for [l letters]
               {l weight})))]
+
     (into {} (flatten subsets))))
 
 (def ^:const KEYED-POINTS
