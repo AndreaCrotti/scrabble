@@ -90,7 +90,7 @@
             (let [perms-words (perms-with-length letters size)]
               (intersection (set perms-words) (set all-words)))))))
 
-(defn valued-anagrams
+(defn best-words
   [tiles word]
   "Return all the possible evaluations of the anagrams given the tiles"
   (let [patt (re-pattern (str "^" (clojure.string/replace tiles #"\d" "[a-z]") "$"))

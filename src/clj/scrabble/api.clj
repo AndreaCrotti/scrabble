@@ -17,15 +17,15 @@
    :headers {"Access-Control-Allow-Origin" "*"
              "Access-Control-Allow-Headers" "Content-Type"}})
 
-(defn valued-anagrams [tiles word]
-  (let [res (scrabble/valued-anagrams tiles word)]
+(defn best-words [tiles word]
+  (let [res (scrabble/best-words tiles word)]
     {:status 200
      :body (json/write-str res)}))
 
 (defroutes app-routes
   (GET "/" [] "Not defined")
   (GET "/anagrams" [word] (get-words word))
-  (GET "/valued-anagrams" [tiles word] (valued-anagrams tiles word))
+  (GET "/best-words" [tiles word] (best-words tiles word))
   (GET "/words" [one] {:status 200 :body "{}"})
   (route/not-found "URL not found"))
 
