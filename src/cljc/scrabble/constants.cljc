@@ -1,5 +1,9 @@
 (ns scrabble.constants)
 
+(def ^:const ALPHA-LOWER
+  "All possible characters"
+  (map char (range (int \a) (inc (int \z)))))
+
 (def ^:const JOLLY-CHAR
   "Symbol to use for the jolly letter"
   \*)
