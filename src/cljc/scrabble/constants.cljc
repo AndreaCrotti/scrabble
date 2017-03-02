@@ -46,6 +46,7 @@
 (def ALPHABET
   "Valid alphabet for each language, derived from the points definition"
   (zipmap LANGUAGES
+
           (map points-to-alphabet LANGUAGES)))
 
 (defn- keyed-points [language]

@@ -113,8 +113,8 @@
 ;; And more
 (def word-generator
   "Generator of valid word, obtained by creating vector of chars and fmapping join over them"
-  (gen/such-that jolly-check
-                 (gen/fmap str/join
+  (gen/fmap str/join
+            (gen/such-that jolly-check
                            (gen/vector
                             (gen/elements (:english scrabble.constants/ALPHABET)) 1 scrabble.constants/MAX-LETTERS))))
 
