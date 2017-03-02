@@ -3,7 +3,8 @@
             [clojure.test :as t]
             [scrabble.constants :as const]
             [scrabble.generators :as gen]
-            [clojure.test.check.properties :as prop]))
+            [clojure.test.check.properties :as prop]
+            [clojure.test.check.clojure-test :refer [defspec]]))
 
 (t/deftest test-key-points
   (let [number-letters
@@ -98,7 +99,7 @@
     \* 2 "he**o" true
     \* 2 "h**l*" false))
 
-(clojure.test.check.clojure-test/defspec points-greater-than-zero
+(defspec points-greater-than-zero
   100
   (prop/for-all [w gen/chars-available-generator]
                 (>= (scrabble/word-value w) 0)))
