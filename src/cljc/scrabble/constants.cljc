@@ -27,7 +27,8 @@
    {}
 
    :english
-   {1 [\a \e \i \o \r \s \t]
+   {0 [JOLLY-CHAR]
+    1 [\a \e \i \o \r \s \t]
     2 [\d \l \n \u]
     3 [\g \h \y]
     4 [\b \c \f \m \p]
@@ -41,7 +42,7 @@
 
 (defn points-to-alphabet [language]
   ;; an easier way to do this maybe?
-  (conj (apply concat (vals (language POINTS))) JOLLY-CHAR))
+  (apply concat (vals (language POINTS))))
 
 (def ALPHABET
   "Valid alphabet for each language, derived from the points definition"

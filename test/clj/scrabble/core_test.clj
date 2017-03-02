@@ -2,17 +2,15 @@
   (:require [scrabble.core :as scrabble]
             [clojure.test :as t]
             [scrabble.constants :as const]
-            [clojure.test.check :as tc]
-            [clojure.test.check.generators :as gen]
-            [clojure.test.check.properties :as prop]
-            [clojure.string :as str]))
+            [scrabble.generators :as gen]
+            [clojure.test.check.properties :as prop]))
 
 (t/deftest test-key-points
   (let [number-letters
         (apply + (map count (vals (:english const/POINTS))))]
 
     (t/testing "right number of characters"
-      (t/is (= 26 number-letters)))
+      (t/is (= 27 number-letters)))
 
     (t/testing "length is the same"
       (t/is (= (count (:english const/KEYED-POINTS)) number-letters)))))
@@ -83,12 +81,6 @@
       ;;FIXME: this should really be '(["cab" 9]) instead of this
       "c11" "abd" '())))
 
-#_(t/deftest matches-test
-    (t/testing "get the best possible placements"
-      (t/are [solutions tiles-str letters] (= (scrabble/matches (scrabble/str-to-tile tiles-str) letters false) solutions)
-        {"ab" 5, "ba" 5} "11" "ab"
-        {"ab" 9 "ba" 6} "12" "ab")))
-
 
 ;; define what are the various properties
 ;; 1. given the same tiles and a sequence of letter, any permutation of the letters should give the same result
@@ -99,24 +91,14 @@
 ;; a) check that there can be max 2 jollys at the same time
 ;; b) could potentially check that the number of letters in each word don't exceed the total potentially
 
-(defn max-frequency [char max-els]
-  (fn [word] (<= (get (frequencies word) char 0) max-els)))
+(t/deftest max-frequency-test
+  ;; simple check that the helper function is doing its job
+  (t/are [char max-els word is-max?] (= ((gen/max-frequency char max-els) word) is-max?)
+    \* 2 "hello" true
+    \* 2 "he**o" true
+    \* 2 "h**l*" false))
 
-;; just take the list of letters per language and use that to generate all the constraints instead
-(def jolly-check (max-frequency scrabble.constants/JOLLY-CHAR 2))
-
-
-;; make this more flexible for example could pass things like
-;; - ratio of vowels to consonants
-;; - average lentgh of words
-;; - language
-;; And more
-(def word-generator
-  "Generator of valid word, obtained by creating vector of chars and fmapping join over them"
-  (gen/fmap str/join
-            (gen/such-that jolly-check
-                           (gen/vector
-                            (gen/elements (:english scrabble.constants/ALPHABET)) 1 scrabble.constants/MAX-LETTERS))))
-
-;; (gen/sample word-generator)
-
+(clojure.test.check.clojure-test/defspec points-greater-than-zero
+  100
+  (prop/for-all [w gen/chars-available-generator]
+                (>= (scrabble/word-value w) 0)))
