@@ -8,4 +8,5 @@
    :tiles {} ; keyed by the position and containing the type of the tyle
    :word-to-anagram nil
    :anagrams []
+   :fetching? false ;; true whenever something is being fetched remotely
    :results []})

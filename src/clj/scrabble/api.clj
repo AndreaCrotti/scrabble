@@ -11,13 +11,14 @@
 (defn get-words
   "Return all possible words"
   [word]
-  (prn "Got request for word " word)
   {:status 200
    :body (json/write-str (scrabble/anagrams word))
    ;; TODO: implement some more proper security here instead
    ;; with the right settings on deployment
    :headers {"Access-Control-Allow-Origin" "*"
-             "Access-Control-Allow-Headers" "Content-Type"}})
+             "Access-Control-Allow-Headers" "Content-Type"
+             ;; should this not be done already by the wrap-json middleware?
+             "Content-Type" "application/json"}})
 
 (defn best-words [tiles word]
   (let [res (scrabble/best-words tiles word)]

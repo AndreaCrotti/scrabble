@@ -1,29 +1,13 @@
 (ns scrabble.events
-  (:require [re-frame.core :as re-frame :refer [reg-event-db]]
+  (:require [ajax.core :refer [GET]]
+            [re-frame.core :as re-frame :refer [dispatch reg-event-db]]
             [scrabble.db :as db]
-            [scrabble.query :as query :refer [find-matches get-anagrams]]
-            [ajax.core :refer [GET POST]]))
+            [scrabble.query :as query :refer [find-matches]]))
 
 (reg-event-db
  :initialize-db
  (fn  [_ _]
    db/default-db))
-
-(defn word-handler [response]
-  (prn response))
-
-(defn word-error-handler [error]
-  (prn error))
-
-(reg-event-db
- :get-meaning
- ;; get the actual word to ask here
- (fn [db [_ word]]
-   ;; find an actual API that can do this job properly
-   (GET "http://www.dictionary.com/browse/api"
-        {:handler word-handler
-         :error-handler word-error-handler}
-    )))
 
 (reg-event-db
  :set-language
@@ -52,9 +36,20 @@
 (reg-event-db
  :fetch-anagrams
  (fn [db _]
-   (let [tmp (get-anagrams (:word-to-anagram db))]
-     (prn tmp)
-     (assoc db :anagrams tmp))))
+   ;; TODO change it to use the secondo form with reg-event-fx instead
+   (GET "http://localhost:3000/anagrams"
+        {:params {:word (:word-to-anagram db)}
+         :handler #(dispatch [:set-anagrams %1])
+         :error-handler #(prn "got response error" %1)})
+   
+   (assoc db :fetching? true)))
+
+(reg-event-db
+ :set-anagrams
+ (fn [db [_ response]]
+   (-> db
+       (assoc :fetching? false)
+       (assoc :anagrams (js->clj response)))))
 
 (reg-event-db
  :set-word-to-anagram
