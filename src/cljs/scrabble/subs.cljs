@@ -26,4 +26,5 @@
 
 (reg-sub
  :anagrams
- :anagrams)
+ (fn [db _]
+   (reverse (sort-by count (:anagrams db)))))

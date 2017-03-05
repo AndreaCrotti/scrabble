@@ -82,8 +82,8 @@
   (let [ans (subscribe [:anagrams])]
     (fn []
       (into
-       [:div {:class "ans"}]
-       (map (fn [v] [:div v]) @ans)))))
+       [:ul {:class "ans"}]
+       (map (fn [v] [:li v]) @ans)))))
 
 (defn main-panel []
   ;; might even not need a function at all here
