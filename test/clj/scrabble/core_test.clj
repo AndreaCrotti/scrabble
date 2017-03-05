@@ -83,6 +83,10 @@
       "c11" "abd" '())))
 
 
+(t/deftest cleanup-dictionary-test
+  (let [words ["Hello" "genitive's" "hello"]]
+    (t/is (= (scrabble/clean-words words) ["genitive" "hello"]))))
+
 ;; define what are the various properties
 ;; 1. given the same tiles and a sequence of letter, any permutation of the letters should give the same result
 ;; 2. given a number of tiles and letters, the length of any word can not be greater than the union of the letters
