@@ -35,28 +35,28 @@
          {:pos 2 :letter nil :val :tl}]
         word "b c"]
     (t/testing "words with positions and numbers"
-      (t/is (= (scrabble/word-value-tiles tiles word) 17))))
+      (t/is (= (scrabble/word-value tiles word) 17))))
 
   (let [tiles
         [{:pos 0 :letter nil :val :tw}]
         word "b"]
     (t/testing "one character word"
-      (t/is (= (scrabble/word-value-tiles tiles word) 12))))
+      (t/is (= (scrabble/word-value tiles word) 12))))
 
   (let [tiles [{:pos 0 :letter \a :val :tw}]
         word ""]
     (t/testing "Passing partial information"
-      (t/is (= (scrabble/word-value-tiles tiles word) 1))))
+      (t/is (= (scrabble/word-value tiles word) 1))))
 
   (let [tiles
         [{:pos 0 :letter \a :val :tw}]
         word "b"]
     (t/testing "Don't reuse already used triple words"
-      (t/is (= (scrabble/word-value-tiles tiles word) 1)))))
+      (t/is (= (scrabble/word-value tiles word) 1)))))
 
 
 (t/deftest word-values-test-are
-  (t/are [word-val tiles word] (= word-val (scrabble/word-value-tiles tiles word))
+  (t/are [word-val tiles word] (= word-val (scrabble/word-value tiles word))
     ;; single letter already filled in
     1 [{:pos 0 :letter \a :val :tw}] "h"))
 

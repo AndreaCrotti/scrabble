@@ -21,39 +21,45 @@
        (into [])))
 
 (def ALL-WORDS
+  ;; TODO: should this be a constant instead?
   (->> (:english const/DICT-FILES)
        slurp
        (str/split-lines)
        (clean-words)))
-
-(defn word-value [word]
-  (apply + (map (fn [v] (get (:english const/KEYED-POINTS) v)) word)))
 
 (defn char-value
   "Return the value of the given char"
   [ch]
   (let [val-type (:val ch)
         multiplier (get mult-char val-type 1)]
+    ;; should not ve english only
     (* (get (:english const/KEYED-POINTS) (:letter ch) 0) multiplier)))
 
-(defn word-to-charpos [word]
+(defn word-to-charpos
+  "From a word return a mapping between a char and its position"
+  [word]
   (into {} (map-indexed (fn [idx v] {idx v}) word)))
 
-(defn word-value-tiles [tiles word]
-  (let [charpos (word-to-charpos word)
-        to-fill-in (filter #(nil? (:letter %)) tiles)
-        pre-filled (filter #(not (nil? (:letter %))) tiles)
-        filled-in (for [tf to-fill-in]
-                    (assoc tf :letter (get charpos (:pos tf))))
-        partial-sum
-        (+
-         (apply + (map #(get (:english const/KEYED-POINTS) (:letter %)) pre-filled))
-         (apply + (map char-value filled-in)))
-        all-multipliers (map #(get mult-word % 1) (map :val filled-in))
-        word-multiplier (if (empty? all-multipliers)
-                          1
-                          (apply max all-multipliers))]
-    (* word-multiplier partial-sum)))
+(defn word-value
+  "Compute the value of the given word given the tile configuration"
+  ([word]
+   (apply + (map (fn [v] (get (:english const/KEYED-POINTS) v)) word)))
+
+  ([tiles word]
+   (let [charpos (word-to-charpos word)
+         to-fill-in (filter #(nil? (:letter %)) tiles)
+         pre-filled (filter #(not (nil? (:letter %))) tiles)
+         filled-in (for [tf to-fill-in]
+                     (assoc tf :letter (get charpos (:pos tf))))
+         partial-sum
+         (+
+          (apply + (map #(get (:english const/KEYED-POINTS) (:letter %)) pre-filled))
+          (apply + (map char-value filled-in)))
+         all-multipliers (map #(get mult-word % 1) (map :val filled-in))
+         word-multiplier (if (empty? all-multipliers)
+                           1
+                           (apply max all-multipliers))]
+     (* word-multiplier partial-sum))))
 
 (def mult-char-to-keyword
   {\1 :ol
@@ -101,7 +107,7 @@
         tiles-obj (str-to-tile tiles)
         ans (anagrams word)
         filtered-ans (filter some? (map #(re-matches patt %) ans))
-        valued (map (partial word-value-tiles tiles-obj) filtered-ans)
+        valued (map (partial word-value tiles-obj) filtered-ans)
         res (zipmap filtered-ans valued)]
 
     (reverse (sort-by second res))))
