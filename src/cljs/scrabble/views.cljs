@@ -85,7 +85,6 @@
        [:div {:class "ans"}]
        (map (fn [v] [:div v]) @ans)))))
 
-
 (defn main-panel []
   ;; might even not need a function at all here
   (fn []
@@ -103,14 +102,13 @@
      [:button {:id "submit-button"
                :on-click #(dispatch [:get-results])}
       "Find The Best Word, now!"]
-     
+
      ;; legend reminding all the available values
-     
      [results]
      [anagram-input]
 
      [:button {:id "get-anagrams"
                :on-click #(dispatch [:fetch-anagrams])}
       "Show the anagrams"]
-     
+
      [anagrams-results]]))
