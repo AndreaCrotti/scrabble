@@ -47,7 +47,6 @@
 (reg-event-db
  :set-anagrams
  (fn [db [_ response]]
-   ;;XXX: for some very strange reason is not working without the prn
    (prn response)
    (-> db
        (assoc :fetching? false)
