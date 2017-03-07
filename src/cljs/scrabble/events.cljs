@@ -4,6 +4,7 @@
             [scrabble.db :as db]
             [scrabble.query :as query :refer [find-matches]]))
 
+
 (reg-event-db
  :initialize-db
  (fn  [_ _]
