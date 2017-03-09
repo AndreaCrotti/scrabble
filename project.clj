@@ -27,7 +27,10 @@
                  [devcards "0.2.2"]
                  [cljs-ajax "0.5.8"]
                  [secretary "1.2.3"]
-                 [org.clojure/test.check "0.9.0"]]
+                 [org.clojure/test.check "0.9.0"]
+                 [integrant "0.2.2"]
+                 [sqlitejdbc "0.5.6"]
+                 [datascript "0.15.5"]]
 
   :uberjar-name "scrabble.jar"
   :plugins [[lein-ring "0.8.13"]

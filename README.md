@@ -56,3 +56,5 @@ your option) any later version.
 - makes it possible to ask simpler and more specialised questions (making all the constraints and the declaration of tiles for example not a strong requirement anymore)such as:
   + all the words ending with a certain letter
   + words starting with a certain letter
+- evaluate using core.unify or datascript to actually generate the words, which should
+  be much more efficient possibly
