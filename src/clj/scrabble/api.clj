@@ -8,11 +8,18 @@
             [ring.middleware.json :refer [wrap-json-response]]
             [ring.middleware.defaults :refer [api-defaults wrap-defaults]]))
 
+(defn valued-anagrams
+  "Return all the anagrams in reverse order of value"
+  [word]
+  (let [ans (scrabble/anagrams word)]
+    (sort-by second
+             (zipmap ans (map scrabble/word-value ans)))))
+
 (defn get-words
   "Return all possible words"
   [word]
   {:status 200
-   :body (json/write-str (scrabble/anagrams word))
+   :body (json/write-str (valued-anagrams word))
    ;; TODO: implement some more proper security here instead
    ;; with the right settings on deployment
    :headers {"Access-Control-Allow-Origin" "*"

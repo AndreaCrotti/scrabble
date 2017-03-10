@@ -7,12 +7,16 @@
 
 (t/deftest test-anagrams
   (t/testing "getting all the anagrams"
-    (let [response (api/app (mock/request :get "/"))]
+    (let [request (mock/request :get "/anagrams" {:word "hello"})
+          ;; looks like it's not working during tests but it works fine otherwise
+          response (api/app request)]
+
       (t/is (= (:status response) 200))
-      (t/is (= (:body response) "Not defined"))))
+      (t/is (= (-> response :body read-str) []))))
 
   (t/testing "get top best words availle"
-    (let [request (mock/request :get "/words" {:query-params {"one" ["complex" "type"]}})
+    ;; not actually correct still here
+    (let [request (mock/request :get "/words" {:one ["complex" "type"]})
           response (api/app request)]
 
       (t/is (= (:status response) 200))

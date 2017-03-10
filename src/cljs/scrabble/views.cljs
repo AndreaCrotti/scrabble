@@ -76,6 +76,7 @@
     (fn []
       [:div {:class "anagram-input"}
        [:input {:type "text"
+                :value @inp
                 :on-change #(dispatch [:set-word-to-anagram (-> % .-target .-value)])}]])))
 
 (defn anagrams-results []
@@ -83,7 +84,7 @@
     (fn []
       (into
        [:ul {:class "ans"}]
-       (map (fn [v] [:li v]) @ans)))))
+       (map (fn [v] [:li (str (first v) ": " (second v))]) @ans)))))
 
 (defn main-panel []
   ;; might even not need a function at all here
@@ -103,6 +104,10 @@
                :on-click #(dispatch [:get-results])}
       "Find The Best Word, now!"]
 
+     [:button {:id "clear best word search"
+               :on-click #(dispatch [:clear-best-word])}
+      "Clear best word search"]
+
      ;; legend reminding all the available values
      [results]
      [anagram-input]
@@ -110,5 +115,14 @@
      [:button {:id "get-anagrams"
                :on-click #(dispatch [:fetch-anagrams])}
       "Show the anagrams"]
+
+     [:button {:id "clear anagrams"
+               :class "clear"
+               :on-click #(dispatch [:clear-anagrams])}
+      "Clear anagrams search"]
+
+     #_(fn [] (let [wd (subscribe [:word-to-anagram])]
+             (when wd)
+             [:div (str "Anagrams for " wd " :")]))
 
      [anagrams-results]]))

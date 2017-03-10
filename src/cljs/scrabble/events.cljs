@@ -35,6 +35,21 @@
    (assoc db :results (find-matches (:language db) (:tiles db) (:letters db)))))
 
 (reg-event-db
+ :clear-anagrams
+ (fn [db _]
+   (-> db
+       (assoc :fetching? false)
+       (assoc :word-to-anagram nil)
+       (assoc :anagrams []))))
+
+(reg-event-db
+ :clear-best-word
+ (fn [db _]
+   (-> db
+       (assoc :letters {})
+       (assoc :tiles {}))))
+
+(reg-event-db
  :fetch-anagrams
  (fn [db _]
    ;; TODO change it to use the secondo form with reg-event-fx instead
