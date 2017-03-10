@@ -45,5 +45,5 @@
   (wrap-json-response app-routes api-defaults))
 
 (defn -main [& [port]]
-  (let [port (Integer. (or port 3000))]
+  (let [port (Integer. (or port 5000))]
     (jetty/run-jetty (site #'app) {:port port :join? false})))
