@@ -4,7 +4,10 @@
              [core :refer [GET POST defroutes]]
              [route :as route]]
             [clojure.data.json :as json]
+            [environ.core :refer [env]]
+            [compojure.handler :refer [site]]
             [scrabble.core :as scrabble]
+            [ring.adapter.jetty :as jetty]
             [ring.middleware.json :refer [wrap-json-response]]
             [ring.middleware.defaults :refer [api-defaults wrap-defaults]]))
 
@@ -42,3 +45,6 @@
 (def app
   (wrap-json-response app-routes api-defaults))
 
+(defn -main [& [port]]
+  (let [port (Integer. (or port (env :port) 3000))]
+    (jetty/run-jetty (site #'app) {:port port :join? false})))

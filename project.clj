@@ -69,11 +69,12 @@
   :ring {:handler scrabble.api/app
          :auto-reload? true
          :auto-refresh? true}
-  :main ^:skip-aot scrabble.api
+  :main scrabble.api
   :target-path "target/%s"
   :profiles
 
   {:uberjar {:aot :all}
+   :production {:env {:production true}}
    :dev
    {:plugins [[lein-figwheel "0.5.9"]
               [lein-doo "0.1.7"]]
