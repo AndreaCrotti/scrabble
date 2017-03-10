@@ -73,8 +73,7 @@
   :target-path "target/%s"
   :profiles
 
-  {:uberjar {:aot :all}
-   :production {:env {:production true}}
+  {:production {:env {:production true}}
    :dev
    {:plugins [[lein-figwheel "0.5.9"]
               [lein-doo "0.1.7"]]
