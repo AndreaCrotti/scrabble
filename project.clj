@@ -30,7 +30,10 @@
                  [org.clojure/test.check "0.9.0"]
                  [integrant "0.2.2"]
                  [sqlitejdbc "0.5.6"]
-                 [datascript "0.15.5"]]
+                 [datascript "0.15.5"]
+                 [org.clojure/core.match "0.2.2"]
+                 [org.clojure/core.unify "0.5.7"]
+                 [org.hugoduncan/core.logic "0.8.11.1"]]
 
   :uberjar-name "scrabble.jar"
   :plugins [[lein-ring "0.8.13"]
