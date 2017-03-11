@@ -7,7 +7,7 @@
 
 (t/deftest test-anagrams
   (t/testing "getting all the anagrams"
-    (let [request (mock/request :get "/anagrams" {:word "hello"})
+    (let [request (mock/request :get "/api/anagrams" {:word "hello"})
           ;; looks like it's not working during tests but it works fine otherwise
           response (api/app request)]
 
@@ -16,7 +16,7 @@
 
   (t/testing "get top best words availle"
     ;; not actually correct still here
-    (let [request (mock/request :get "/words" {:one ["complex" "type"]})
+    (let [request (mock/request :get "/api/words" {:one ["complex" "type"]})
           response (api/app request)]
 
       (t/is (= (:status response) 200))

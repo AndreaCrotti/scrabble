@@ -18,6 +18,7 @@
                  [org.clojure/math.combinatorics "0.1.4"]
                  [org.clojure/tools.cli "0.3.5"]
                  [re-frame "0.9.2"]
+                 [re-frisk "0.3.2"]
                  [reagent "0.6.1"]
                  [ring "1.5.1"]
                  [ring-middleware-format "0.7.2" :exclusions [ring]]
@@ -65,7 +66,6 @@
   ;; automatically if possible
   :doo {:build "test"}
 
-  ;; :hooks [environ.leiningen.hooks]
   :ring {:handler scrabble.api/app
          :auto-reload? true
          :auto-refresh? true}
@@ -74,7 +74,12 @@
   :profiles
 
   {:production {:env {:production true}}
-   :uberjar {:aot :all}
+   :uberjar {:hooks [leiningen.cljsbuild]
+             :env {:production true}
+             :omit-source true
+             :aot :all
+             :main scrabble.api
+             :cljsbuild  {:source-paths ["src/cljs"]}}
    :dev
    {:plugins [[lein-figwheel "0.5.9"]
               [lein-doo "0.1.7"]]

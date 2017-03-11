@@ -7,7 +7,6 @@
               [scrabble.views :as views]
               [scrabble.config :as config]))
 
-
 (defn dev-setup []
   (when config/debug?
     (enable-console-print!)

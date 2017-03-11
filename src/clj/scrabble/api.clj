@@ -9,6 +9,7 @@
             ;; import env
             [environ.core :refer [env]]
             [ring.adapter.jetty :as jetty]
+            [ring.util.http-response :as response]
             [ring.middleware.json :refer [wrap-json-response]]
             [ring.middleware.defaults :refer [api-defaults wrap-defaults]]))
 
@@ -37,11 +38,12 @@
      :body (json/write-str res)}))
 
 (defroutes app-routes
-  (GET "/" [] "Not defined")
-  (GET "/anagrams" [word] (get-words word))
-  (GET "/best-words" [tiles word] (best-words tiles word))
-  (GET "/words" [one] {:status 200 :body "{}"})
-  (route/not-found "URL not found"))
+  (GET "/" [] (response/file-response "index.html" {:root "resources/public"}))
+  ;; (GET "/" [] "hello world")
+  (GET "/api/anagrams" [word] (get-words word))
+  (GET "/api/best-words" [tiles word] (best-words tiles word))
+  (GET "/api/words" [one] {:status 200 :body "{}"})
+  #_(route/not-found "URL not found"))
 
 (def app
   (wrap-json-response app-routes api-defaults))
