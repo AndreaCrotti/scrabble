@@ -6,7 +6,8 @@
             [clojure.data.json :as json]
             [compojure.handler :refer [site]]
             [scrabble.core :as scrabble]
-            [environ.core :as env]
+            ;; import env
+            [environ.core :refer [env]]
             [ring.adapter.jetty :as jetty]
             [ring.middleware.json :refer [wrap-json-response]]
             [ring.middleware.defaults :refer [api-defaults wrap-defaults]]))
