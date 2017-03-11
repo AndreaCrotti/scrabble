@@ -7,7 +7,7 @@
             [compojure.handler :refer [site]]
             [scrabble.core :as scrabble]
             ;; import env
-            #_[environ.core :refer [env]]
+            [environ.core :refer [env]]
             [ring.adapter.jetty :as jetty]
             [ring.middleware.json :refer [wrap-json-response]]
             [ring.middleware.defaults :refer [api-defaults wrap-defaults]]))
