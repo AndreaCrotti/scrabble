@@ -74,7 +74,7 @@
   :profiles
 
   {:production {:env {:production true}}
-   :uberjar {:aot :all}
+   ;; :uberjar {:aot :all}
    :dev
    {:plugins [[lein-figwheel "0.5.9"]
               [lein-doo "0.1.7"]]

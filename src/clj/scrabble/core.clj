@@ -1,7 +1,6 @@
 ;; TODO: replace the hardcoded :english with a language argument
 
 (ns scrabble.core
-  (:gen-class)
   (:require [clojure
              [set :refer [intersection]]
              [string :as str]]
