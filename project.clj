@@ -1,8 +1,10 @@
 (defproject scrabble "0.1.0-SNAPSHOT"
   :description "Help finding good words for scrabble"
   :url "https://github.com/AndreaCrotti/scrabble"
+
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
+
   :dependencies [[bk/ring-gzip "0.2.1"]
                  [clj-jwt "0.1.1"]
                  [compojure "1.5.2"]
@@ -30,6 +32,8 @@
                  [integrant "0.2.3"]
                  [sqlitejdbc "0.5.6"]
                  [datascript "0.15.5"]
+                 [doo "0.1.7"]
+                 [re-frisk "0.3.2"]
                  [org.clojure/core.match "0.2.2"]
                  [org.clojure/core.unify "0.5.7"]
                  [org.hugoduncan/core.logic "0.8.11.1"]]
@@ -72,12 +76,12 @@
   :profiles
 
   {:production {:env {:production true}}
-   ;; :uberjar {:hooks [leiningen.cljsbuild]
-   ;;           :env {:production true}
-   ;;           :omit-source true
-   ;;           :aot :all
-   ;;           :main scrabble.api
-   ;;           :cljsbuild  {:source-paths ["src/cljs"]}}
+   :uberjar {:hooks []
+             :source-paths ["src/clj" "src/cljc"]
+             :prep-tasks ["compile" ["cljsbuild" "once" "min"]]
+             :omit-source true
+             :aot :all
+             :main scrabble.api}
    :dev
    {:plugins [[lein-figwheel "0.5.9"]
               [lein-doo "0.1.7"]]
@@ -91,8 +95,6 @@
                    [lambdaisland/garden-watcher "0.3.0"]
                    ;; dependencies for the reloaded workflow
                    [ns-tracker "0.3.1"]
-                   [doo "0.1.7"]
-                   [re-frisk "0.3.2"]
                    [reloaded.repl "0.2.3"]
                    [ring-mock "0.1.5"]]}}
 

@@ -1,6 +1,7 @@
 (ns scrabble.core
     (:require [reagent.core :as reagent]
               [re-frame.core :as re-frame]
+              ;; how do I make it happen only on dev?
               [re-frisk.core :refer [enable-re-frisk!]]
               [scrabble.events]
               [scrabble.subs]
