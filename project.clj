@@ -18,7 +18,7 @@
                  [org.clojure/math.combinatorics "0.1.4"]
                  [org.clojure/tools.cli "0.3.5"]
                  [re-frame "0.9.2"]
-                 [re-frisk "0.3.2"]
+                 ;; [re-frisk "0.3.2"]
                  [reagent "0.6.1"]
                  [ring "1.5.1"]
                  [ring-middleware-format "0.7.2" :exclusions [ring]]
