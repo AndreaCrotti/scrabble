@@ -6,6 +6,7 @@
             [clojure.data.json :as json]
             [compojure.handler :refer [site]]
             [scrabble.core :as scrabble]
+            [environ.core :as env]
             [ring.adapter.jetty :as jetty]
             [ring.middleware.json :refer [wrap-json-response]]
             [ring.middleware.defaults :refer [api-defaults wrap-defaults]]))
@@ -45,5 +46,5 @@
   (wrap-json-response app-routes api-defaults))
 
 (defn -main [& [port]]
-  (let [port (Integer. (or port 5000))]
+  (let [port (Integer. (or port (env :port) 5000))]
     (jetty/run-jetty (site #'app) {:port port :join? false})))
