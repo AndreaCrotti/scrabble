@@ -65,7 +65,7 @@
   ;; automatically if possible
   :doo {:build "test"}
 
-  :hooks [environ.leiningen.hooks]
+  ;; :hooks [environ.leiningen.hooks]
   :ring {:handler scrabble.api/app
          :auto-reload? true
          :auto-refresh? true}
