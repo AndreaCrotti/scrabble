@@ -4,11 +4,13 @@
               [re-frisk.core :refer [enable-re-frisk!]]
               [scrabble.events]
               [scrabble.subs]
-              [scrabble.views :as views]
-              [scrabble.config :as config]))
+              [scrabble.views :as views]))
+
+(def debug?
+  ^boolean js/goog.DEBUG)
 
 (defn dev-setup []
-  (when config/debug?
+  (when debug?
     (enable-console-print!)
     (enable-re-frisk!)
     (println "dev mode")))

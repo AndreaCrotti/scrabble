@@ -18,14 +18,12 @@
                  [org.clojure/math.combinatorics "0.1.4"]
                  [org.clojure/tools.cli "0.3.5"]
                  [re-frame "0.9.2"]
-                 ;; [re-frisk "0.3.2"]
-                 [reagent "0.6.1"]
+                 [reagent "0.6.0"]
                  [ring "1.5.1"]
                  [ring-middleware-format "0.7.2" :exclusions [ring]]
                  [ring.middleware.logger "0.5.0"]
                  [ring/ring-defaults "0.2.3"]
                  [ring/ring-json "0.4.0"]
-                 [devcards "0.2.2"]
                  [cljs-ajax "0.5.8"]
                  [secretary "1.2.3"]
                  [org.clojure/test.check "0.9.0"]
@@ -74,12 +72,12 @@
   :profiles
 
   {:production {:env {:production true}}
-   :uberjar {:hooks [leiningen.cljsbuild]
-             :env {:production true}
-             :omit-source true
-             :aot :all
-             :main scrabble.api
-             :cljsbuild  {:source-paths ["src/cljs"]}}
+   ;; :uberjar {:hooks [leiningen.cljsbuild]
+   ;;           :env {:production true}
+   ;;           :omit-source true
+   ;;           :aot :all
+   ;;           :main scrabble.api
+   ;;           :cljsbuild  {:source-paths ["src/cljs"]}}
    :dev
    {:plugins [[lein-figwheel "0.5.9"]
               [lein-doo "0.1.7"]]
@@ -93,6 +91,7 @@
                    [lambdaisland/garden-watcher "0.3.0"]
                    ;; dependencies for the reloaded workflow
                    [ns-tracker "0.3.1"]
+                   [doo "0.1.7"]
                    [re-frisk "0.3.2"]
                    [reloaded.repl "0.2.3"]
                    [ring-mock "0.1.5"]]}}
@@ -100,7 +99,7 @@
   :cljsbuild
   {:builds
    [{:id           "dev"
-     :source-paths ["src/cljs"]
+     :source-paths ["src/cljs" "src/cljc"]
      :figwheel     {:on-jsload "scrabble.core/mount-root"}
      :compiler     {:main                 scrabble.core
                     :output-to            "resources/public/js/compiled/app.js"
@@ -112,7 +111,7 @@
                     }}
 
     {:id           "min"
-     :source-paths ["src/cljs"]
+     :source-paths ["src/cljs" "src/cljc"]
      :compiler     {:main            scrabble.core
                     :output-to       "resources/public/js/compiled/app.js"
                     :optimizations   :advanced
@@ -120,7 +119,7 @@
                     :pretty-print    false}}
 
     {:id           "test"
-     :source-paths ["src/cljs" "test/cljs"]
+     :source-paths ["src/cljs" "test/cljs" "src/cljc" "test/cljc"]
      :compiler     {:main          scrabble.runner
                     :output-to     "resources/public/js/compiled/test.js"
                     :output-dir    "resources/public/js/compiled/test/out"

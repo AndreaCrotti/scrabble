@@ -53,7 +53,7 @@
  :fetch-anagrams
  (fn [db _]
    ;; TODO change it to use the secondo form with reg-event-fx instead
-   (GET "http://localhost:3000/anagrams"
+   (GET "http://localhost:3000/api/anagrams"
         {:params {:word (:word-to-anagram db)}
          :handler #(dispatch [:set-anagrams %1])
          :error-handler #(prn "got response error" %1)})
