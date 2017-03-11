@@ -7,7 +7,7 @@
             [compojure.handler :refer [site]]
             [scrabble.core :as scrabble]
             ;; import env
-            [environ.core :refer [env]]
+            #_[environ.core :refer [env]]
             [ring.adapter.jetty :as jetty]
             [ring.middleware.json :refer [wrap-json-response]]
             [ring.middleware.defaults :refer [api-defaults wrap-defaults]]))
@@ -47,5 +47,5 @@
   (wrap-json-response app-routes api-defaults))
 
 (defn -main [& [port]]
-  (let [port (Integer. (or port (env :port) 5000))]
+  (let [port (Integer. (or port (System/getenv "PORT") 5000))]
     (jetty/run-jetty (site #'app) {:port port :join? false})))
