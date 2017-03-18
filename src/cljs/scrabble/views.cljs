@@ -68,8 +68,8 @@
   (let [results (subscribe [:results])]
     (fn []
       (into
-       [:div {:class "results"}]
-       (map (fn [[fst snd]] [:div (str "Word: " fst " Value: " snd)]) @results)))))
+       [:table {:class "best-word-table"}]
+       (map (fn [[fst snd]] [:tr [:td fst] [:td snd]]) @results)))))
 
 (defn anagram-input []
   (let [inp (subscribe [:word-to-anagram])]
@@ -104,7 +104,7 @@
      ;; how can I add more classes?
      [:button {:id "submit-button"
                :on-click #(dispatch [:get-results])}
-      "Find The Best Word, now!"]
+      "Give me the best words!"]
 
      [:button {:id "clear best word search"
                :on-click #(dispatch [:clear-best-word])}

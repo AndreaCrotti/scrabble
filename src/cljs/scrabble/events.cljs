@@ -46,6 +46,7 @@
  :clear-best-word
  (fn [db _]
    (-> db
+       (assoc :results {})
        (assoc :letters {})
        (assoc :tiles {}))))
 
