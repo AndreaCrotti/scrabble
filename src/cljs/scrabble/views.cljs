@@ -79,12 +79,14 @@
                 :value @inp
                 :on-change #(dispatch [:set-word-to-anagram (-> % .-target .-value)])}]])))
 
-(defn anagrams-results []
+(defn anagrams-results
+  "Show the anagrams in a table"
+  []
   (let [ans (subscribe [:anagrams])]
     (fn []
       (into
-       [:ul {:class "ans"}]
-       (map (fn [v] [:li (str (first v) ": " (second v))]) @ans)))))
+       [:table {:class "ans"}]
+       (map (fn [an] [:tr [:td (first an)] [:td (second an)]]) @ans)))))
 
 (defn main-panel []
   ;; might even not need a function at all here
