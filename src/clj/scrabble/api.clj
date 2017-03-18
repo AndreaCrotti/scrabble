@@ -35,15 +35,17 @@
 (defn best-words [tiles word]
   (let [res (scrabble/best-words tiles word)]
     {:status 200
-     :body (json/write-str res)}))
+     :body (json/write-str res)
+     :headers {"Access-Control-Allow-Origin" "*"
+             "Access-Control-Allow-Headers" "Content-Type"
+             ;; should this not be done already by the wrap-json middleware?
+             "Content-Type" "application/json"}}))
 
 (defroutes app-routes
   (GET "/" [] (response/file-response "index.html" {:root "resources/public"}))
-  ;; (GET "/" [] "hello world")
   (GET "/api/anagrams" [word] (get-words word))
   (GET "/api/best-words" [tiles word] (best-words tiles word))
-  (GET "/api/words" [one] {:status 200 :body "{}"})
-  #_(route/not-found "URL not found"))
+  (route/not-found "URL not found"))
 
 (def app
   (wrap-json-response app-routes api-defaults))
