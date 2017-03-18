@@ -36,7 +36,9 @@
                  [re-frisk "0.3.2"]
                  [org.clojure/core.match "0.2.2"]
                  [org.clojure/core.unify "0.5.7"]
-                 [org.hugoduncan/core.logic "0.8.11.1"]]
+                 [org.hugoduncan/core.logic "0.8.11.1"]
+                 [ring.middleware.logger "0.5.0"]
+                 [com.taoensso/timbre "4.8.0"]]
 
   :uberjar-name "scrabble.jar"
   :plugins [[lein-ring "0.8.13"]
