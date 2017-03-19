@@ -65,15 +65,11 @@
    (let [letters (concat-map-letters (:letters db))
          tiles (concat-map-letters (:tiles db))]
 
-     (prn "Passing the letters and tiles: " letters " and " tiles)
-
      (GET "http://localhost:3000/api/best-words"
-          {:params {:letters letters
-                    :tiles tiles }}
-
-          :handler #(dispatch [:set-best-words %1])
-          :error-handler #(prn "got error response" %1)))
-
+          {:params {:letters letters :tiles tiles}
+           :handler #(dispatch [:set-best-words %1])
+           :error-handler #(prn "got error response" %1)}))
+   
    (assoc db :fetching? true)))
 
 
