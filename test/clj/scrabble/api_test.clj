@@ -12,12 +12,13 @@
           response (api/app request)]
 
       (t/is (= (:status response) 200))
-      (t/is (= (-> response :body read-str) []))))
+      (t/is (= (-> response :body read-str) [])))))
 
+
+(t/deftest test-best-words
   (t/testing "get top best words availle"
     ;; not actually correct still here
-    (let [request (mock/request :get "/api/words" {:one ["complex" "type"]})
+    (let [request (mock/request :get "/api/best-words" {:tiles "111" :letters "abc"})
           response (api/app request)]
-
       (t/is (= (:status response) 200))
       (t/is (= (-> response :body read-str) {})))))

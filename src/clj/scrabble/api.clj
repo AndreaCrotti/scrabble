@@ -33,19 +33,19 @@
              ;; should this not be done already by the wrap-json middleware?
              "Content-Type" "application/json"}})
 
-(defn best-words [tiles word]
-  (let [res (scrabble/best-words tiles word)]
+(defn best-words [tiles letters]
+  (let [res (scrabble/best-words tiles letters)]
     {:status 200
      :body (json/write-str res)
      :headers {"Access-Control-Allow-Origin" "*"
-             "Access-Control-Allow-Headers" "Content-Type"
-             ;; should this not be done already by the wrap-json middleware?
-             "Content-Type" "application/json"}}))
+               "Access-Control-Allow-Headers" "Content-Type"
+               ;; should this not be done already by the wrap-json middleware?
+               "Content-Type" "application/json"}}))
 
 (defroutes app-routes
   (GET "/" [] (response/file-response "index.html" {:root "resources/public"}))
-  (GET "/api/anagrams" [word] (get-words word))
-  (GET "/api/best-words" [tiles word] (best-words tiles word))
+  (GET "/api/anagrams" [word] (get-words word)) 
+  (GET "/api/best-words" [tiles letters] (best-words tiles letters))
   (route/not-found "URL not found"))
 
 (def app

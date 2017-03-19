@@ -73,7 +73,7 @@
 (t/deftest anagrams-test
   (t/testing "simple-anagrams"
     (t/are [ans word] (= (scrabble/anagrams word) ans)
-      #{"ab" "cab" "cb" "ac" "ca" "abc" "ba" "bc"} "abc")))
+      #{"ab" "cab" "cb" "ca" "abc" "ba" "bc"} "abc")))
 
 (t/deftest best-words-test
   (t/testing "best-words"
