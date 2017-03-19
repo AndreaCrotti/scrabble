@@ -20,9 +20,12 @@
   "All the available languages"
   #{:english :italian})
 
+;; this is really just a defaultdict, so a dictionary
+;; which computes the result
 (def ^:const DICT-FILES
   "Dictionary"
-  {:english "resources/american-english"})
+  {:english "resources/english.txt"
+   :italian "resources/italian.txt"})
 
 (def ^:const POINTS
   "Points per letter and per language"
