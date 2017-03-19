@@ -68,8 +68,8 @@
   (let [results (subscribe [:results])]
     (fn []
       (into
-       [:div {:class "results"}]
-       (map (fn [[fst snd]] [:div (str "Word: " fst " Value: " snd)]) @results)))))
+       [:table {:class "best-word-table"}]
+       (map (fn [[fst snd]] [:tr [:td fst] [:td snd]]) @results)))))
 
 (defn anagram-input []
   (let [inp (subscribe [:word-to-anagram])]
@@ -79,12 +79,14 @@
                 :value @inp
                 :on-change #(dispatch [:set-word-to-anagram (-> % .-target .-value)])}]])))
 
-(defn anagrams-results []
+(defn anagrams-results
+  "Show the anagrams in a table"
+  []
   (let [ans (subscribe [:anagrams])]
     (fn []
       (into
-       [:ul {:class "ans"}]
-       (map (fn [v] [:li (str (first v) ": " (second v))]) @ans)))))
+       [:table {:class "ans"}]
+       (map (fn [an] [:tr [:td (first an)] [:td (second an)]]) @ans)))))
 
 (defn main-panel []
   ;; might even not need a function at all here
@@ -102,7 +104,7 @@
      ;; how can I add more classes?
      [:button {:id "submit-button"
                :on-click #(dispatch [:get-results])}
-      "Find The Best Word, now!"]
+      "Give me the best words!"]
 
      [:button {:id "clear best word search"
                :on-click #(dispatch [:clear-best-word])}

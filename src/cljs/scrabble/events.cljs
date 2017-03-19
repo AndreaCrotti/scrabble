@@ -29,12 +29,6 @@
    (assoc-in db [:letters idx] tile)))
 
 (reg-event-db
- :get-results
- (fn [db _]
-   ;; use juxt here instead?
-   (assoc db :results (find-matches (:language db) (:tiles db) (:letters db)))))
-
-(reg-event-db
  :clear-anagrams
  (fn [db _]
    (-> db
@@ -46,8 +40,42 @@
  :clear-best-word
  (fn [db _]
    (-> db
+       (assoc :results {})
        (assoc :letters {})
        (assoc :tiles {}))))
+
+(defn- concat-map-letters [letters-map]
+  ;; add some checks to make sure the size is actually matchin
+  (let [sorted-keys (sort (keys letters-map))]
+    (clojure.string/join
+     ""
+     (for [idx sorted-keys]
+       (get letters-map idx)))))
+
+(reg-event-db
+ :set-best-words
+ (fn [db [_ best-words]]
+   (-> db
+       (assoc :fetching? false)
+       (assoc :results (js->clj best-words)))))
+
+(reg-event-db
+ :get-results
+ (fn [db _]
+   (let [letters (concat-map-letters (:letters db))
+         tiles (concat-map-letters (:tiles db))]
+
+     (prn "Passing the letters and tiles: " letters " and " tiles)
+
+     (GET "http://localhost:3000/api/best-words"
+          {:params {:letters letters
+                    :tiles tiles }}
+
+          :handler #(dispatch [:set-best-words %1])
+          :error-handler #(prn "got error response" %1)))
+
+   (assoc db :fetching? true)))
+
 
 (reg-event-db
  :fetch-anagrams
@@ -63,7 +91,6 @@
 (reg-event-db
  :set-anagrams
  (fn [db [_ response]]
-   (prn response)
    (-> db
        (assoc :fetching? false)
        (assoc :anagrams (js->clj response)))))
