@@ -19,6 +19,14 @@
        (sort)
        (into [])))
 
+(defn load-words
+  "Load all the words"
+  [filename]
+  (->> filename
+       slurp
+       str/split-lines
+       clean-words))
+
 (def ALL-WORDS
   ;; TODO: should this be a constant instead?
   (->> (:english const/DICT-FILES)
