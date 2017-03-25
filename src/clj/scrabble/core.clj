@@ -29,10 +29,7 @@
 
 (def ALL-WORDS
   ;; TODO: should this be a constant instead?
-  (->> (:english const/DICT-FILES)
-       slurp
-       (str/split-lines)
-       (clean-words)))
+  (load-words (:english const/DICT-FILES)))
 
 (defn char-value
   "Return the value of the given char"
