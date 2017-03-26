@@ -1,5 +1,7 @@
 (ns scrabble.constants)
 
+(def ^:const DEFAULT-LANGUAGE :english)
+
 (def ^:const ALPHA-LOWER
   "All possible characters"
   (map char (range (int \a) (inc (int \z)))))

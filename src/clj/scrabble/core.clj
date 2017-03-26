@@ -15,6 +15,7 @@
   (->> words
        (map str/lower-case)
        (map #(re-find #"\w+" %)) ;; remove all the genitive forms
+       (filter (complement nil?))
        (into #{})
        (sort)
        (into [])))
@@ -29,7 +30,8 @@
 
 (def ALL-WORDS
   ;; TODO: should this be a constant instead?
-  (load-words (:english const/DICT-FILES)))
+  {:english (load-words (:english const/DICT-FILES))
+   :italian (load-words (:italian const/DICT-FILES))})
 
 (defn char-value
   "Return the value of the given char"
@@ -92,20 +94,16 @@
 
 (defn anagrams
   "Return all possible valid words from the given letters"
-  ([letters]
-   (anagrams letters (count letters)))
+  [letters & {:keys [min-size language max-size]
+              :or {min-size 1 language const/DEFAULT-LANGUAGE}}]
 
-  ([letters max-size]
-   (anagrams letters max-size 1))
-
-  ([letters max-size min-size]
-   (apply clojure.set/union
-          (for [size (range max-size min-size -1)]
-            (let [perms-words (perms-with-length letters size)]
-              (intersection (set perms-words) (set ALL-WORDS)))))))
+  (apply clojure.set/union
+         (for [size (range (or max-size (count letters)) min-size -1)]
+           (let [perms-words (perms-with-length letters size)]
+             (intersection (set perms-words) (set (language ALL-WORDS)))))))
 
 (defn best-words
-  [tiles word]
+  [tiles word & {:keys [language] :or {language const/DEFAULT-LANGUAGE}}]
   "Return all the possible evaluations of the anagrams given the tiles"
   (let [patt (re-pattern (str "^" (clojure.string/replace tiles #"\d" "[a-z]") "$"))
         tiles-obj (str-to-tile tiles)
