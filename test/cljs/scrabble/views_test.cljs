@@ -4,4 +4,4 @@
 
 
 (t/deftest main-panel-test
-  (t/is (> (count ((views/main-panel))) 0)))
+  (t/is (pos? (count ((views/main-panel))))))
