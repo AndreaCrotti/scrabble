@@ -3,45 +3,42 @@
   :url "https://github.com/AndreaCrotti/scrabble"
 
   :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+            :url  "http://www.eclipse.org/legal/epl-v10.html"}
 
-  :dependencies [[bk/ring-gzip "0.2.1"]
+  :dependencies [[bk/ring-gzip "0.3.0"]
                  [clj-jwt "0.1.1"]
-                 [compojure "1.6.0"]
+                 [compojure "1.6.1"]
                  [environ "1.1.0"]
-                 [garden "1.3.3"]
-                 [http-kit "2.2.0"]
+                 [garden "1.3.5"]
+                 [http-kit "2.3.0"]
                  [metosin/ring-http-response "0.9.0"]
                  [mutant "0.2.0"]
-                 ;; [org.clojure/clojure "1.9.0-alpha16"]
                  [org.clojure/clojure "1.9.0"]
-                 [org.clojure/clojurescript "1.9.946"]
+                 [org.clojure/clojurescript "1.10.238"]
                  [org.clojure/core.async "0.4.474"]
                  [org.clojure/data.json "0.2.6"]
                  [org.clojure/math.combinatorics "0.1.4"]
-                 [org.clojure/tools.cli "0.3.5"]
-                 [re-frame "0.10.2"]
-                 [reagent "0.7.0"]
+                 [org.clojure/tools.cli "0.3.7"]
+                 [re-frame "0.10.5"]
+                 [reagent "0.8.0"]
                  [ring "1.6.3"]
                  [ring-middleware-format "0.7.2" :exclusions [ring]]
-                 [ring.middleware.logger "0.5.0"]
                  [ring/ring-defaults "0.3.1"]
                  [ring/ring-json "0.4.0"]
                  [cljs-ajax "0.7.3"]
-                 [cljs-http "0.1.44"]
+                 [cljs-http "0.1.45"]
                  [secretary "1.2.3"]
                  [org.clojure/test.check "0.9.0"]
                  [integrant "0.6.3"]
                  [sqlitejdbc "0.5.6"]
-                 [datascript "0.16.3"]
-                 [doo "0.1.8"]
-                 [re-frisk "0.5.3"]
+                 [datascript "0.16.4"]
+                 [doo "0.1.10"]
+                 [day8.re-frame/re-frame-10x "0.3.3"]
                  [org.clojure/core.match "0.2.2"]
                  [org.clojure/core.unify "0.5.7"]
                  [org.hugoduncan/core.logic "0.8.11.1"]
-                 [ring.middleware.logger "0.5.0"]
                  [com.taoensso/timbre "4.10.0"]
-                 [com.rpl/specter "1.1.0"]]
+                 [com.rpl/specter "1.1.1"]]
 
   :uberjar-name "scrabble.jar"
   :plugins [[lein-ring "0.8.13"]
@@ -58,10 +55,10 @@
                                     "test/js"
                                     "resources/public/css"]
 
-  :figwheel {:css-dirs ["resources/public/css"]
+  :figwheel {:css-dirs          ["resources/public/css"]
              ;; :ring-handler scrabble.user/http-handler
              :open-file-command "lein_opener.sh"
-             :server-logfile "log/figwheel.log"}
+             :server-logfile    "log/figwheel.log"}
 
   :garden {:builds [{:id           "screen"
                      :source-paths ["src/clj"]
@@ -73,29 +70,29 @@
   ;; automatically if possible
   :doo {:build "test"}
 
-  :ring {:handler scrabble.api/app
-         :auto-reload? true
+  :ring {:handler       scrabble.api/app
+         :auto-reload?  true
          :auto-refresh? true}
   :main scrabble.api
   :target-path "target/%s"
   :profiles
 
   {:production {:env {:production true}}
-   :uberjar {:hooks []
-             :source-paths ["src/clj" "src/cljc"]
-             :prep-tasks ["compile" ["cljsbuild" "once" "min"]]
-             :omit-source true
-             :aot :all
-             :main scrabble.api}
+   :uberjar    {:hooks        []
+                :source-paths ["src/clj" "src/cljc"]
+                :prep-tasks   ["compile" ["cljsbuild" "once" "min"]]
+                :omit-source  true
+                :aot          :all
+                :main         scrabble.api}
    :dev
    {:plugins [[lein-figwheel "0.5.9"]
               [lein-doo "0.1.7"]]
 
     :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
-    :dependencies [[binaryage/devtools "0.9.8"]
+    :dependencies [[binaryage/devtools "0.9.10"]
                    [com.cemerick/piggieback "0.2.1"]
-                   [figwheel "0.5.14"]
-                   [figwheel-sidecar "0.5.14"]
+                   [figwheel "0.5.15"]
+                   [figwheel-sidecar "0.5.15"]
                    [javax.servlet/servlet-api "2.5"]
                    [lambdaisland/garden-watcher "0.3.1"]
                    ;; dependencies for the reloaded workflow
@@ -113,8 +110,11 @@
                     :output-dir           "resources/public/js/compiled/out"
                     :asset-path           "js/compiled/out"
                     :source-map-timestamp true
-                    :preloads             [devtools.preload]
-                    :external-config      {:devtools/config {:features-to-install :all}}
+                    :preloads             [devtools.preload
+                                           day8.re-frame-10x.preload]
+
+                    :closure-defines {"re_frame.trace.trace_enabled_QMARK_" true}
+                    :external-config {:devtools/config {:features-to-install :all}}
                     }}
 
     {:id           "min"
