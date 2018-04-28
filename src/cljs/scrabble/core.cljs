@@ -2,7 +2,6 @@
     (:require [reagent.core :as reagent]
               [re-frame.core :as re-frame]
               ;; how do I make it happen only on dev?
-              [re-frisk.core :refer [enable-re-frisk!]]
               [scrabble.events]
               [scrabble.subs]
               [scrabble.views :as views]))
@@ -13,7 +12,6 @@
 (defn dev-setup []
   (when debug?
     (enable-console-print!)
-    (enable-re-frisk!)
     (println "dev mode")))
 
 (defn mount-root []

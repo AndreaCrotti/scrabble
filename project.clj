@@ -3,7 +3,7 @@
   :url "https://github.com/AndreaCrotti/scrabble"
 
   :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+            :url  "http://www.eclipse.org/legal/epl-v10.html"}
 
   :dependencies [[bk/ring-gzip "0.3.0"]
                  [clj-jwt "0.1.1"]
@@ -34,7 +34,7 @@
                  [sqlitejdbc "0.5.6"]
                  [datascript "0.16.4"]
                  [doo "0.1.10"]
-                 [re-frisk "0.5.4"]
+                 [day8.re-frame/re-frame-10x "0.3.3"]
                  [org.clojure/core.match "0.2.2"]
                  [org.clojure/core.unify "0.5.7"]
                  [org.hugoduncan/core.logic "0.8.11.1"]
@@ -57,10 +57,10 @@
                                     "test/js"
                                     "resources/public/css"]
 
-  :figwheel {:css-dirs ["resources/public/css"]
+  :figwheel {:css-dirs          ["resources/public/css"]
              ;; :ring-handler scrabble.user/http-handler
              :open-file-command "lein_opener.sh"
-             :server-logfile "log/figwheel.log"}
+             :server-logfile    "log/figwheel.log"}
 
   :garden {:builds [{:id           "screen"
                      :source-paths ["src/clj"]
@@ -72,20 +72,20 @@
   ;; automatically if possible
   :doo {:build "test"}
 
-  :ring {:handler scrabble.api/app
-         :auto-reload? true
+  :ring {:handler       scrabble.api/app
+         :auto-reload?  true
          :auto-refresh? true}
   :main scrabble.api
   :target-path "target/%s"
   :profiles
 
   {:production {:env {:production true}}
-   :uberjar {:hooks []
-             :source-paths ["src/clj" "src/cljc"]
-             :prep-tasks ["compile" ["cljsbuild" "once" "min"]]
-             :omit-source true
-             :aot :all
-             :main scrabble.api}
+   :uberjar    {:hooks        []
+                :source-paths ["src/clj" "src/cljc"]
+                :prep-tasks   ["compile" ["cljsbuild" "once" "min"]]
+                :omit-source  true
+                :aot          :all
+                :main         scrabble.api}
    :dev
    {:plugins [[lein-figwheel "0.5.9"]
               [lein-doo "0.1.7"]]
@@ -112,8 +112,11 @@
                     :output-dir           "resources/public/js/compiled/out"
                     :asset-path           "js/compiled/out"
                     :source-map-timestamp true
-                    :preloads             [devtools.preload]
-                    :external-config      {:devtools/config {:features-to-install :all}}
+                    :preloads             [devtools.preload
+                                           day8.re-frame-10x.preload]
+
+                    :closure-defines {"re_frame.trace.trace_enabled_QMARK_" true}
+                    :external-config {:devtools/config {:features-to-install :all}}
                     }}
 
     {:id           "min"
