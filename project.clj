@@ -23,7 +23,6 @@
                  [reagent "0.8.0"]
                  [ring "1.6.3"]
                  [ring-middleware-format "0.7.2" :exclusions [ring]]
-                 [ring.middleware.logger "0.5.0"]
                  [ring/ring-defaults "0.3.1"]
                  [ring/ring-json "0.4.0"]
                  [cljs-ajax "0.7.3"]
@@ -38,7 +37,6 @@
                  [org.clojure/core.match "0.2.2"]
                  [org.clojure/core.unify "0.5.7"]
                  [org.hugoduncan/core.logic "0.8.11.1"]
-                 [ring.middleware.logger "0.5.0"]
                  [com.taoensso/timbre "4.10.0"]
                  [com.rpl/specter "1.1.1"]]
 

@@ -11,7 +11,6 @@
             [ring.adapter.jetty :as jetty]
             [ring.util.http-response :as response]
             [ring.middleware.json :refer [wrap-json-response]]
-            [ring.middleware.logger :as logger]
             [ring.middleware.defaults :refer [api-defaults wrap-defaults]]))
 
 (defn valued-anagrams
@@ -44,13 +43,12 @@
 
 (defroutes app-routes
   (GET "/" [] (response/file-response "index.html" {:root "resources/public"}))
-  (GET "/api/anagrams" [word] (get-words word)) 
+  (GET "/api/anagrams" [word] (get-words word))
   (GET "/api/best-words" [tiles letters] (best-words tiles letters))
   (route/not-found "URL not found"))
 
 (def app
-  (logger/wrap-with-logger
-   (wrap-json-response app-routes api-defaults)))
+  (wrap-json-response app-routes api-defaults))
 
 (defn -main [& [port]]
   (let [port (Integer. (or port (env :port) 5000))]
