@@ -2,7 +2,7 @@
   (:require [re-frame.core :as re-frame :refer [dispatch subscribe]]
             [scrabble.constants :as const]
             [goog.string :as gstring]
-            [cljs.spec :as spec]))
+            [cljs.spec.alpha :as spec]))
 
 ;; the page is composed of
 ;; - a tile editor: to be able to enter the current situation
