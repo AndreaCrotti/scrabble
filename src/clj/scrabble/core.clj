@@ -7,7 +7,6 @@
             [clojure.math.combinatorics :as combo]
             [scrabble.constants :as const]))
 
-
 (def ^:const mult-word {:dw 2 :tw 3})
 (def ^:const mult-char {:ol 1 :dl 2 :tl 3})
 
@@ -82,9 +81,9 @@
   (vec
    (map-indexed
     (fn [idx v] (let [sym
-                     (get mult-char-to-keyword v nil)
-                     letter (when (nil? sym) v)]
-                 {:pos idx :letter letter :val sym}))
+                      (get mult-char-to-keyword v nil)
+                      letter (when (nil? sym) v)]
+                  {:pos idx :letter letter :val sym}))
     tile-str)))
 
 (defn perms-with-length

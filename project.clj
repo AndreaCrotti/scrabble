@@ -44,6 +44,7 @@
   :plugins [[lein-ring "0.8.13"]
             [environ/environ.lein "0.3.1"]
             [lein-cljsbuild "1.1.4"]
+            [lein-cljfmt "0.3.0"]
             [lein-garden "0.2.8"]]
 
   :min-lein-version "2.5.3"

@@ -54,12 +54,10 @@
     (t/testing "Don't reuse already used triple words"
       (t/is (= (scrabble/word-value tiles word) 1)))))
 
-
 (t/deftest word-values-test-are
   (t/are [word-val tiles word] (= word-val (scrabble/word-value tiles word))
     ;; single letter already filled in
     1 [{:pos 0 :letter \a :val :tw}] "h"))
-
 
 (t/deftest str-to-tile-test
   (t/testing "test str to title"
@@ -67,8 +65,7 @@
       [{:pos 0 :letter \b :val nil}] "b"
       [{:pos 0 :letter nil :val :tl}] "3"
       [{:pos 0 :letter nil :val :dw}] "6"
-      [{:pos 0, :letter \c, :val nil} {:pos 1, :letter \a, :val nil} {:pos 2, :letter nil, :val :ol}] "ca1"))
-      [{:pos 0, :letter \a, :val nil} {:pos 1, :letter nil, :val :tl}] "a3")
+      [{:pos 0, :letter \c, :val nil} {:pos 1, :letter \a, :val nil} {:pos 2, :letter nil, :val :ol}] "ca1")))
 
 (t/deftest anagrams-test
   (t/testing "simple-anagrams"
@@ -81,7 +78,6 @@
       "211e1" "friend" '(["fined" 14] ["fired" 13] ["fried" 13] ["finer" 13] ["infer" 10] ["diner" 9])
       ;;FIXME: this should really be '(["cab" 9]) instead of this
       "c11" "abd" '())))
-
 
 (t/deftest cleanup-dictionary-test
   (let [words ["Hello" "genitive's" "hello"]]

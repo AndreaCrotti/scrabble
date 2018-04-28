@@ -3,7 +3,6 @@
             [clojure.tools.cli :refer [parse-opts]]
             [scrabble.core :as core]))
 
-
 (def cli-options
   ;; An option with a required argument
   [["-w" "--word" "Word to analyze"

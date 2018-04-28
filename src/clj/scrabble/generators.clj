@@ -3,14 +3,11 @@
             [clojure.string :as str]
             [clojure.test.check.properties :as prop]))
 
-
 (defn max-frequency [char max-els]
   (fn [word] (<= (get (frequencies word) char 0) max-els)))
 
-
 ;; just take the list of letters per language and use that to generate all the constraints instead
 (def jolly-check (max-frequency scrabble.constants/JOLLY-CHAR 2))
-
 
 ;; make this more flexible for example could pass things like
 ;; - ratio of vowels to consonants

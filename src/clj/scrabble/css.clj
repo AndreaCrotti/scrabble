@@ -1,7 +1,6 @@
 (ns scrabble.css
   (:require [garden.def :refer [defstyles]]))
 
-
 (defstyles screen
   ;; add some extra spacing between everything if possible
   [:body {:padding-bottom "20px"}]
@@ -15,5 +14,4 @@
   [:.letter-input {:max-width "8px" :font-weight "extrabold" :border-width "3px"}]
 
   ;; this should be an id instead of this
-  [:#submit-button {:background-color "red" :font-weight "bold"}]
-)
+  [:#submit-button {:background-color "red" :font-weight "bold"}])
