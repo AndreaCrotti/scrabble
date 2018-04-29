@@ -8,13 +8,13 @@
 
 (deftest test-key-points
   (let [number-letters
-        (apply + (map count (vals (:english const/POINTS))))]
+        (apply + (map count (vals (:english const/points))))]
 
     (testing "right number of characters"
       (is (= 27 number-letters)))
 
     (testing "length is the same"
-      (is (= (count (:english const/KEYED-POINTS)) number-letters)))))
+      (is (= (count (:english const/keyed-points)) number-letters)))))
 
 (deftest test-word-values
   (testing "simple word value"
