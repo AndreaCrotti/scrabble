@@ -15,8 +15,8 @@
   (dispatch [:set-language lang]))
 
 (def flag-files
-  (zipmap const/AVAILABLE-LANGUAGES
-          (map #(subs (str % ".png") 1) const/AVAILABLE-LANGUAGES)))
+  (zipmap const/available-languages
+          (map #(subs (str % ".png") 1) const/available-languages)))
 
 (defn make-lang [lang current-language]
   (let [selected (= lang current-language)
@@ -39,7 +39,7 @@
     (fn []
       (into
        [:div {:class "language-group"}]
-       (for [lang const/AVAILABLE-LANGUAGES]
+       (for [lang const/available-languages]
          (make-lang lang @current-language))))))
 
 (defn make-tile [idx]
@@ -57,7 +57,7 @@
   (fn []
     (into
      [:div {:class "letters-editor"}]
-     (for [n (range const/MAX-LETTERS)]
+     (for [n (range const/max-letters)]
        (let [letter (subscribe [:letter n])]
          [:input {:type "text"
                   ;;:value @letter
@@ -96,7 +96,7 @@
      [lang-selection]
 
      (into [:g {:class "tile-editor"}
-            (for [n (range const/MAX-TILES)]
+            (for [n (range const/max-tiles)]
               [make-tile n])])
 
      [available-letters]

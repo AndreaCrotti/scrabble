@@ -7,7 +7,7 @@
   (fn [word] (<= (get (frequencies word) char 0) max-els)))
 
 ;; just take the list of letters per language and use that to generate all the constraints instead
-(def jolly-check (max-frequency scrabble.constants/JOLLY-CHAR 2))
+(def jolly-check (max-frequency scrabble.constants/jolly-char 2))
 
 ;; make this more flexible for example could pass things like
 ;; - ratio of vowels to consonants
@@ -19,6 +19,6 @@
   (gen/fmap str/join
             (gen/such-that jolly-check
                            (gen/vector
-                            (gen/elements (:english scrabble.constants/ALPHABET)) 1 scrabble.constants/MAX-LETTERS))))
+                            (gen/elements (:english scrabble.constants/alphabet)) 1 scrabble.constants/max-letters))))
 
 ;; (gen/sample chars-available-generator)

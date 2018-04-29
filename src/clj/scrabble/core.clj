@@ -29,8 +29,8 @@
 
 (def ALL-WORDS
   ;; TODO: should this be a constant instead?
-  {:english (load-words (:english const/DICT-FILES))
-   :italian (load-words (:italian const/DICT-FILES))})
+  {:english (load-words (:english const/dict-files))
+   :italian (load-words (:italian const/dict-files))})
 
 (defn char-value
   "Return the value of the given char"
@@ -38,7 +38,7 @@
   (let [val-type (:val ch)
         multiplier (get mult-char val-type 1)]
     ;; should not ve english only
-    (* (get (:english const/KEYED-POINTS) (:letter ch) 0) multiplier)))
+    (* (get (:english const/keyed-points) (:letter ch) 0) multiplier)))
 
 (defn word-to-charpos
   "From a word return a mapping between a char and its position"
@@ -48,7 +48,7 @@
 (defn word-value
   "Compute the value of the given word given the tile configuration"
   ([word]
-   (apply + (map (fn [v] (get (:english const/KEYED-POINTS) v)) word)))
+   (apply + (map (fn [v] (get (:english const/keyed-points) v)) word)))
 
   ([tiles word]
    (let [charpos (word-to-charpos word)
@@ -58,7 +58,7 @@
                      (assoc tf :letter (get charpos (:pos tf))))
          partial-sum
          (+
-          (apply + (map #(get (:english const/KEYED-POINTS) (:letter %)) pre-filled))
+          (apply + (map #(get (:english const/keyed-points) (:letter %)) pre-filled))
           (apply + (map char-value filled-in)))
          all-multipliers (map #(get mult-word % 1) (map :val filled-in))
          word-multiplier (if (empty? all-multipliers)
@@ -94,7 +94,7 @@
 (defn anagrams
   "Return all possible valid words from the given letters"
   [letters & {:keys [min-size language max-size]
-              :or {min-size 1 language const/DEFAULT-LANGUAGE}}]
+              :or {min-size 1 language const/default-language}}]
 
   (apply clojure.set/union
          (for [size (range (or max-size (count letters)) min-size -1)]
@@ -102,7 +102,7 @@
              (intersection (set perms-words) (set (language ALL-WORDS)))))))
 
 (defn best-words
-  [tiles word & {:keys [language] :or {language const/DEFAULT-LANGUAGE}}]
+  [tiles word & {:keys [language] :or {language const/default-language}}]
   "Return all the possible evaluations of the anagrams given the tiles"
   (let [patt (re-pattern (str "^" (clojure.string/replace tiles #"\d" "[a-z]") "$"))
         tiles-obj (str-to-tile tiles)
