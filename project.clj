@@ -100,8 +100,6 @@
                    [figwheel-sidecar "0.5.16"]
                    [javax.servlet/servlet-api "2.5"]
                    [lambdaisland/garden-watcher "0.3.2"]
-                   ;; dependencies for the reloaded workflow
-                   [ns-tracker "0.3.1"]
                    [reloaded.repl "0.2.4"]
                    [ring-mock "0.1.5"]]}}
 
