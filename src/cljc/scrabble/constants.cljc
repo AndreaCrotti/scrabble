@@ -1,35 +1,35 @@
 (ns scrabble.constants)
 
-(def ^:const DEFAULT-LANGUAGE :english)
+(def DEFAULT-LANGUAGE :english)
 
-(def ^:const ALPHA-LOWER
+(def ALPHA-LOWER
   "All possible characters"
   (map char (range (int \a) (inc (int \z)))))
 
-(def ^:const JOLLY-CHAR
+(def JOLLY-CHAR
   "Symbol to use for the jolly letter"
   \*)
 
-(def ^:const MAX-TILES
+(def MAX-TILES
   "Maxmium number of tiles to consider"
   10)
 
-(def ^:const MAX-LETTERS
+(def MAX-LETTERS
   "Maximum numbers of letters to play"
   7)
 
-(def ^:const AVAILABLE-LANGUAGES
+(def AVAILABLE-LANGUAGES
   "All the available languages"
   #{:english :italian})
 
 ;; this is really just a defaultdict, so a dictionary
 ;; which computes the result
-(def ^:const DICT-FILES
+(def DICT-FILES
   "Dictionary"
   {:english "resources/english.txt"
    :italian "resources/italian.txt"})
 
-(def ^:const POINTS
+(def POINTS
   "Points per letter and per language"
   {
    :italian
@@ -45,7 +45,7 @@
     8 [\x]
     10 [\j \q \z]}})
 
-(def ^:const LANGUAGES
+(def LANGUAGES
   "Available languages"
   (keys POINTS))
 
@@ -70,5 +70,5 @@
 
     (into {} (flatten subsets))))
 
-(def ^:const KEYED-POINTS
+(def KEYED-POINTS
   (zipmap AVAILABLE-LANGUAGES (map keyed-points AVAILABLE-LANGUAGES)))
