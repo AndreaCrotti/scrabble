@@ -7,8 +7,8 @@
             [clojure.math.combinatorics :as combo]
             [scrabble.constants :as const]))
 
-(def ^:const mult-word {:dw 2 :tw 3})
-(def ^:const mult-char {:ol 1 :dl 2 :tl 3})
+(def mult-word {:dw 2 :tw 3})
+(def mult-char {:ol 1 :dl 2 :tl 3})
 
 (defn clean-words [words]
   (->> words

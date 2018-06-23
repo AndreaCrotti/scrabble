@@ -75,9 +75,10 @@
   (let [inp (subscribe [:word-to-anagram])]
     (fn []
       [:div {:class "anagram-input"}
-       [:input {:type "text"
-                :value @inp
-                :on-change #(dispatch [:set-word-to-anagram (-> % .-target .-value)])}]])))
+       [:input
+        {:type      "text"
+         :value     @inp
+         :on-change #(dispatch [:set-word-to-anagram (-> % .-target .-value)])}]])))
 
 (defn anagrams-results
   "Show the anagrams in a table"
