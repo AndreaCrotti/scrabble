@@ -20,10 +20,10 @@
                  [org.clojure/math.combinatorics "0.1.4"]
                  [org.clojure/tools.cli "0.3.7"]
                  [re-frame "0.10.5"]
-                 [reagent "0.8.0"]
+                 [reagent "0.8.1"]
                  [ring "1.6.3"]
                  [ring-middleware-format "0.7.2" :exclusions [ring]]
-                 [ring/ring-defaults "0.3.1"]
+                 [ring/ring-defaults "0.3.2"]
                  [ring/ring-json "0.4.0"]
                  [cljs-ajax "0.7.3"]
                  [cljs-http "0.1.45"]
@@ -31,7 +31,7 @@
                  [org.clojure/test.check "0.9.0"]
                  [integrant "0.6.3"]
                  [sqlitejdbc "0.5.6"]
-                 [datascript "0.16.4"]
+                 [datascript "0.16.6"]
                  [doo "0.1.10"]
                  [day8.re-frame/re-frame-10x "0.3.3"]
                  [org.clojure/core.match "0.2.2"]
@@ -86,19 +86,20 @@
                 :aot          :all
                 :main         scrabble.api}
    :dev
-   {:plugins [[lein-figwheel "0.5.9"]
+   {:plugins [[lein-figwheel "0.5.16"]
               [lein-doo "0.1.7"]]
 
     :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
     :dependencies [[binaryage/devtools "0.9.10"]
-                   [com.cemerick/piggieback "0.2.1"]
-                   [figwheel "0.5.15"]
-                   [figwheel-sidecar "0.5.15"]
+                   [cider/cider-nrepl "0.17.0"]
+                   [com.cemerick/piggieback "0.2.2"]
+                   [figwheel "0.5.16"]
+                   [figwheel-sidecar "0.5.16"]
                    [javax.servlet/servlet-api "2.5"]
-                   [lambdaisland/garden-watcher "0.3.1"]
+                   [lambdaisland/garden-watcher "0.3.2"]
                    ;; dependencies for the reloaded workflow
                    [ns-tracker "0.3.1"]
-                   [reloaded.repl "0.2.3"]
+                   [reloaded.repl "0.2.4"]
                    [ring-mock "0.1.5"]]}}
 
   :cljsbuild
