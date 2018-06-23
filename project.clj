@@ -7,6 +7,7 @@
 
   :dependencies [[bk/ring-gzip "0.3.0"]
                  [clj-jwt "0.1.1"]
+                 [ns-tracker "0.3.1"]
                  [compojure "1.6.1"]
                  [environ "1.1.0"]
                  [garden "1.3.5"]
