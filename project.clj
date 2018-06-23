@@ -62,7 +62,7 @@
              :server-logfile    "log/figwheel.log"}
 
   :garden {:builds [{:id           "screen"
-                     :source-paths ["src/clj"]
+                     :source-paths ["src/clj" "src/cljc"]
                      :stylesheet   scrabble.css/screen
                      :compiler     {:output-to     "resources/public/css/screen.css"
                                     :pretty-print? true}}]}
@@ -81,7 +81,10 @@
   {:production {:env {:production true}}
    :uberjar    {:hooks        []
                 :source-paths ["src/clj" "src/cljc"]
-                :prep-tasks   ["compile" ["cljsbuild" "once" "min"]]
+                :prep-tasks [["compile"]
+                             ["garden" "once"]
+                             ["cljsbuild" "once" "min"]]
+
                 :omit-source  true
                 :aot          :all
                 :main         scrabble.api}
