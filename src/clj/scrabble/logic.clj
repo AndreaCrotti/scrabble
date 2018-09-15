@@ -75,6 +75,23 @@
 ;;  - non fixed letters are in one of the holes
 ;;  - non fixed letters are used *only* once and are part ofa given list of letters
 
+(defn init
+  [vars hints]
+  (if (seq vars)
+    (let [hint (first hints)]
+      (l/all
+       (if (= \_ hint)
+         (l/== (first vars) hint)
+         l/succeed)
+
+       (init (next vars) (next hints))))
+
+    l/succeed))
+
+(defn solver
+  [hints]
+  )
+
 (l/run 2 [q]
   (l/membero q words-list))
 
@@ -86,3 +103,4 @@
 (u/subst '[(?a * ?x | 2) + (?b * ?x) + ?c]
          '{?c 3, ?b 4, ?x 5
            ?z (?a * 5 | 2)})
+
