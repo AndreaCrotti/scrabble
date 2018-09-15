@@ -2,6 +2,7 @@
   (:require [clojure.core.logic :as l]
             [clojure.core.unify :as u]
             [clojure.core.logic.arithmetic :as la]
+            [clojure.core.logic.fd :as fd]
             [clojure.math.combinatorics :as combo]))
 
 (def words-list ["one" "two" "neo"])
@@ -77,6 +78,8 @@
 
 (defn init
   [vars hints]
+  (println "Vars = " vars
+           "hints = " hints)
   (if (seq vars)
     (let [hint (first hints)]
       (l/all
@@ -89,11 +92,18 @@
     l/succeed))
 
 (defn solver
-  [hints]
-  )
+  [hints letters]
 
-(l/run 2 [q]
-  (l/membero q words-list))
+  (let [vars (repeatedly (count hints) l/lvar)]
+    (l/run 1 [q]
+      ;; the order does matter in the amount of backtracking that gets done
+      (l/== q vars)
+      (l/membero q ["hello"])
+      (l/everyg #(l/membero % letters) vars)
+      (init vars hints))))
+
+(comment
+  (solver "h_ll_" "eo"))
 
 
 ;; would be nice to use unification directly but it doesn't work
