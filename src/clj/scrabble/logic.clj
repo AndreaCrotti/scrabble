@@ -35,37 +35,6 @@
 (l/run 2 [q]
   (my-appendo [1] q [1 2 3 5]))
 
-(defn ntho
-  [xs idx o]
-  (l/conde
-   ;;TODO: would be nice to add the extra conditions needed here eventually
-   #_(l/and* (la/>= idx 0)
-           (la/< idx (count xs)))
-
-   (l/succeed (l/== o (nth xs idx)))))
-
-(l/run 2 [q]
-  (ntho [1 2 3] 1 q))
-
-(def choices [\a \b \c])
-(def word "h_ll_")
-
-(l/run 2 [q]
-  (ntho word 1 q))
-
-(l/run 3 [q]
-  (l/membero q choices))
-
-(l/run 2 [q]
-  (l/fresh [a b]
-    (l/membero a choices)
-    (l/membero b choices)
-    ;;FIXME: doesn't work since ntho doesn't support LVar at the moment
-    (ntho q 0 "h")
-    (ntho q 1 a)
-    (ntho q 4 b)))
-
-
 ;; 1. generate all anagrams of a word
 ;; 2. generate all anagrams given a word with some Holes and various possibilities
 ;;  Given for example H _ l l _
@@ -97,14 +66,13 @@
   (let [vars (repeatedly (count hints) l/lvar)]
     (l/run 1 [q]
       ;; the order does matter in the amount of backtracking that gets done
+      
       (l/== q vars)
-      (l/membero q ["hello"])
-      (l/everyg #(l/membero % letters) vars)
+      (l/membero q [(seq "hello")])
+      #_(l/everyg #(l/membero % letters) vars)
       (init vars hints))))
 
-(comment
-  (solver "h_ll_" "eo"))
-
+(solver "h_ll_" "hello")
 
 ;; would be nice to use unification directly but it doesn't work
 (u/unify ['?first "Argento" "Baudo"]
