@@ -19,10 +19,11 @@
                  [org.clojure/math.combinatorics "0.1.4"]
                  [org.clojure/tools.cli "0.4.0"]
 
-                 [ring "1.7.0"]
                  [ring-middleware-format "0.7.2" :exclusions [ring]]
                  [ring/ring-defaults "0.3.2"]
                  [ring/ring-json "0.4.0"]
+                 [ring "1.7.0"]
+
                  [org.clojure/test.check "0.9.0"]
                  [integrant "0.6.3"]
                  [sqlitejdbc "0.5.6"]
@@ -33,6 +34,7 @@
                  [doo "0.1.10"]
                  [re-frame "0.10.6"]
                  [reagent "0.8.1"]
+                 [day8.re-frame/http-fx "0.1.6"]
 
                  [org.clojure/core.logic "0.8.11"]
                  [com.taoensso/timbre "4.10.0"]
