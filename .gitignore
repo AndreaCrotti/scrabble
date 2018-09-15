@@ -13,3 +13,4 @@ pom.xml.asc
 /resources/public/css/
 /log
 .cljs_rhino_repl/
+/logically/

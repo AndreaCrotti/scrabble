@@ -1,8 +1,12 @@
 (ns scrabble.logic
   (:require [clojure.core.logic :as l]
+            [clojure.core.unify :as u]
+            [clojure.core.logic.arithmetic :as la]
             [clojure.math.combinatorics :as combo]))
 
 (def words-list ["one" "two" "neo"])
+
+(u/flatten-bindings)
 
 (l/run 2 [q]
   (l/== q 2))
@@ -30,6 +34,36 @@
 (l/run 2 [q]
   (my-appendo [1] q [1 2 3 5]))
 
+(defn ntho
+  [xs idx o]
+  (l/conde
+   ;;TODO: would be nice to add the extra conditions needed here eventually
+   #_(l/and* (la/>= idx 0)
+           (la/< idx (count xs)))
+
+   (l/succeed (l/== o (nth xs idx)))))
+
+(l/run 2 [q]
+  (ntho [1 2 3] 1 q))
+
+(def choices [\a \b \c])
+(def word "h_ll_")
+
+(l/run 2 [q]
+  (ntho word 1 q))
+
+(l/run 3 [q]
+  (l/membero q choices))
+
+(l/run 2 [q]
+  (l/fresh [a b]
+    (l/membero a choices)
+    (l/membero b choices)
+    ;;FIXME: doesn't work since ntho doesn't support LVar at the moment
+    (ntho q 0 "h")
+    (ntho q 1 a)
+    (ntho q 4 b)))
+
 
 ;; 1. generate all anagrams of a word
 ;; 2. generate all anagrams given a word with some Holes and various possibilities
@@ -43,3 +77,12 @@
 
 (l/run 2 [q]
   (l/membero q words-list))
+
+
+;; would be nice to use unification directly but it doesn't work
+(u/unify ['?first "Argento" "Baudo"]
+         ["Dario" '?last '?very-last])
+
+(u/subst '[(?a * ?x | 2) + (?b * ?x) + ?c]
+         '{?c 3, ?b 4, ?x 5
+           ?z (?a * 5 | 2)})
