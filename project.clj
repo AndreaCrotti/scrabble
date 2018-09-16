@@ -10,34 +10,31 @@
                  [ns-tracker "0.3.1"]
                  [compojure "1.6.1"]
                  [environ "1.1.0"]
-                 [garden "1.3.5"]
-                 [http-kit "2.3.0"]
+                 [garden "1.3.6"]
                  [metosin/ring-http-response "0.9.0"]
-                 [mutant "0.2.0"]
+
                  [org.clojure/clojure "1.9.0"]
-                 [org.clojure/clojurescript "1.10.238"]
                  [org.clojure/core.async "0.4.474"]
                  [org.clojure/data.json "0.2.6"]
                  [org.clojure/math.combinatorics "0.1.4"]
-                 [org.clojure/tools.cli "0.3.7"]
-                 [re-frame "0.10.5"]
-                 [reagent "0.8.1"]
-                 [ring "1.6.3"]
+                 [org.clojure/tools.cli "0.4.0"]
+
+                 [ring "1.7.0"]
                  [ring-middleware-format "0.7.2" :exclusions [ring]]
                  [ring/ring-defaults "0.3.2"]
                  [ring/ring-json "0.4.0"]
-                 [cljs-ajax "0.7.3"]
-                 [cljs-http "0.1.45"]
-                 [secretary "1.2.3"]
                  [org.clojure/test.check "0.9.0"]
                  [integrant "0.6.3"]
                  [sqlitejdbc "0.5.6"]
+
+                 [org.clojure/clojurescript "1.10.238"]
+                 [cljs-ajax "0.7.4"]
                  [datascript "0.16.6"]
                  [doo "0.1.10"]
-                 [day8.re-frame/re-frame-10x "0.3.3"]
-                 [org.clojure/core.match "0.2.2"]
-                 [org.clojure/core.unify "0.5.7"]
-                 [org.hugoduncan/core.logic "0.8.11.1"]
+                 [re-frame "0.10.6"]
+                 [reagent "0.8.1"]
+
+                 [org.clojure/core.logic "0.8.11"]
                  [com.taoensso/timbre "4.10.0"]
                  [com.rpl/specter "1.1.1"]]
 
@@ -95,11 +92,11 @@
 
     :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
     :dependencies [[binaryage/devtools "0.9.10"]
-                   [cider/cider-nrepl "0.17.0"]
-                   [com.cemerick/piggieback "0.2.2"]
                    [figwheel "0.5.16"]
+                   [com.cemerick/piggieback "0.2.2"]
                    [figwheel-sidecar "0.5.16"]
                    [javax.servlet/servlet-api "2.5"]
+                   [day8.re-frame/re-frame-10x "0.3.3"]
                    [lambdaisland/garden-watcher "0.3.2"]
                    [reloaded.repl "0.2.4"]
                    [ring-mock "0.1.5"]]}}
@@ -114,8 +111,7 @@
                     :output-dir           "resources/public/js/compiled/out"
                     :asset-path           "js/compiled/out"
                     :source-map-timestamp true
-                    :preloads             [devtools.preload
-                                           day8.re-frame-10x.preload]
+                    :preloads             [devtools.preload day8.re-frame-10x.preload]
 
                     :closure-defines {"re_frame.trace.trace_enabled_QMARK_" true}
                     :external-config {:devtools/config {:features-to-install :all}}
