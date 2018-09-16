@@ -1,6 +1,5 @@
 (ns scrabble.logic
   (:require [clojure.core.logic :as l]
-            [clojure.core.unify :as u]
             [clojure.core.logic.arithmetic :as la]
             [clojure.core.logic.fd :as fd]
             [clojure.math.combinatorics :as combo]))
